@@ -1,0 +1,26 @@
+package ro.alexmamo.roomjetpackcompose.core
+
+class Constants {
+    companion object {
+        //Room
+        const val BOOK_TABLE = "book_table"
+
+        //Screens
+        const val BOOKS_SCREEN = "Books"
+        const val UPDATE_BOOK_SCREEN = "Update book"
+
+        //Actions
+        const val ADD_BOOK = "Add a book."
+        const val DELETE_BOOK = "Delete a book."
+        const val BACK = "Back."
+
+        //Buttons
+        const val ADD = "Add"
+        const val DISMISS = "Dismiss"
+        const val UPDATE = "Update"
+
+        //Placeholders
+        const val TITLE = "Type a book title..."
+        const val AUTHOR = "Type the author name..."
+    }
+}
