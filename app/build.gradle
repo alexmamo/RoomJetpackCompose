@@ -44,14 +44,7 @@ dependencies {
     //AndroidX
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    //Fragment
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    //LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
-    //ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
     //Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     //Room
     implementation "androidx.room:room-runtime:$room_version"
