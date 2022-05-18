@@ -7,13 +7,12 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BACK
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE_BOOK_SCREEN
 
 @Composable
 fun UpdateBookTopBar(
-    navController: NavController
+    navigateToBooksScreen: () -> Unit
 ) {
     TopAppBar (
         title = {
@@ -24,7 +23,7 @@ fun UpdateBookTopBar(
         navigationIcon = {
             IconButton(
                 onClick = {
-                    navController.popBackStack()
+                    navigateToBooksScreen()
                 }
             ) {
                 Icon(

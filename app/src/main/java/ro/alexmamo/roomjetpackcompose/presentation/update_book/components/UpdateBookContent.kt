@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.TITLE
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE
@@ -19,8 +18,8 @@ import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
 @Composable
 fun UpdateBookContent(
     padding: PaddingValues,
-    navController: NavController,
     bookId: Int,
+    navigateToBooksScreen: () -> Unit,
     viewModel: BooksViewModel = hiltViewModel()
 ) {
     val title = viewModel.book.title
@@ -56,7 +55,7 @@ fun UpdateBookContent(
             onClick = {
                 val updatedBook = Book(bookId, title, author)
                 viewModel.updateBook(updatedBook)
-                navController.popBackStack()
+                navigateToBooksScreen()
             }
         ) {
             Text(

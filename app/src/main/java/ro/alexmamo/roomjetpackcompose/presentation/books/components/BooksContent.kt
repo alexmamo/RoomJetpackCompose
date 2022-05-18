@@ -10,14 +10,13 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
 
 @Composable
 @ExperimentalMaterialApi
 fun BooksContent(
     padding: PaddingValues,
-    navController: NavController,
+    navigateToUpdateBookScreen: (bookId: Int) -> Unit,
     viewModel: BooksViewModel = hiltViewModel()
 ) {
     Box(
@@ -28,7 +27,7 @@ fun BooksContent(
                 items = viewModel.books
             ) { book ->
                 BookCard(
-                    navController = navController,
+                    navigateToUpdateBookScreen = navigateToUpdateBookScreen,
                     book = book
                 )
             }

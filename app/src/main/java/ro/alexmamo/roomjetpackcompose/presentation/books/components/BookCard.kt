@@ -15,17 +15,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DELETE_BOOK
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
-import ro.alexmamo.roomjetpackcompose.presentation.navigation.Screen.UpdateBookScreen
 
 @Composable
 @ExperimentalMaterialApi
 fun BookCard(
-    navController: NavController,
     book: Book,
+    navigateToUpdateBookScreen: (bookId: Int) -> Unit,
     viewModel: BooksViewModel = hiltViewModel()
 ) {
     Card(
@@ -40,7 +38,7 @@ fun BookCard(
             .fillMaxWidth(),
         elevation = 3.dp,
         onClick = {
-            navController.navigate(UpdateBookScreen.route + "/${book.id}")
+            navigateToUpdateBookScreen(book.id)
         }
     ) {
         Row(

@@ -3,7 +3,7 @@ package ro.alexmamo.roomjetpackcompose.presentation.navigation
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.NavType.Companion.IntType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -25,21 +25,25 @@ fun NavGraph (
             route = BooksScreen.route
         ) {
             BooksScreen(
-                navController = navController
+                navigateToUpdateBookScreen = { bookId ->
+                    navController.navigate(UpdateBookScreen.route + "/${bookId}")
+                }
             )
         }
         composable(
             route = UpdateBookScreen.route + "/{bookId}",
             arguments = listOf(
                 navArgument("bookId") {
-                    type = NavType.IntType
+                    type = IntType
                 }
             )
         ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: 0
             UpdateBookScreen(
-                navController = navController,
-                bookId = bookId
+                bookId = bookId,
+                navigateToBooksScreen = {
+                    navController.popBackStack()
+                }
             )
         }
     }
