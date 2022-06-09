@@ -31,7 +31,7 @@ This repo represents the code for following article writen on the Medium publica
 
 See it also on youtube:
 
-* //
+* https://youtu.be/BIMSsgyGBKE
 
 **License**
 ---
