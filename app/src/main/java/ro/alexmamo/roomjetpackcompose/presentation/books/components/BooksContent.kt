@@ -27,8 +27,11 @@ fun BooksContent(
                 items = viewModel.books
             ) { book ->
                 BookCard(
-                    navigateToUpdateBookScreen = navigateToUpdateBookScreen,
-                    book = book
+                    book = book,
+                    deleteBook = {
+                        viewModel.deleteBook(book)
+                    },
+                    navigateToUpdateBookScreen = navigateToUpdateBookScreen
                 )
             }
         }

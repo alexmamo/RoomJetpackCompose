@@ -18,7 +18,7 @@ class BooksViewModel @Inject constructor(
 ) : ViewModel() {
     var books by mutableStateOf(emptyList<Book>())
     var book by mutableStateOf(Book(0, "", ""))
-    var openDialog by mutableStateOf(false)
+    var isDialogOpen by mutableStateOf(false)
 
     fun getBooks() {
         viewModelScope.launch {

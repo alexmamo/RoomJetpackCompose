@@ -14,17 +14,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DELETE_BOOK
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
 
 @Composable
 @ExperimentalMaterialApi
 fun BookCard(
     book: Book,
-    navigateToUpdateBookScreen: (bookId: Int) -> Unit,
-    viewModel: BooksViewModel = hiltViewModel()
+    deleteBook: () -> Unit,
+    navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
     Card(
         shape = MaterialTheme.shapes.small,
@@ -62,7 +60,7 @@ fun BookCard(
             }
             IconButton(
                 onClick = {
-                    viewModel.deleteBook(book)
+                    deleteBook()
                 }
             ) {
                 Icon(

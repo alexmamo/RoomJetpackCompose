@@ -16,6 +16,14 @@ fun BooksScreen(
     viewModel: BooksViewModel = hiltViewModel(),
     navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
+    val isDialogOpen = viewModel.isDialogOpen
+    fun openDialog() {
+        viewModel.isDialogOpen = true
+    }
+    fun closeDialog() {
+        viewModel.isDialogOpen = false
+    }
+
     LaunchedEffect(Unit) {
         viewModel.getBooks()
     }
@@ -24,16 +32,27 @@ fun BooksScreen(
             BooksTopBar()
         },
         floatingActionButton = {
-            AddBookFloatingActionButton()
+            AddBookFloatingActionButton(
+                openDialog = {
+                    openDialog()
+                }
+            )
         },
         content = { padding ->
             BooksContent(
                 padding = padding,
                 navigateToUpdateBookScreen = navigateToUpdateBookScreen
             )
+            if(isDialogOpen) {
+                AddBookAlertDialog(
+                    closeDialog = {
+                        closeDialog()
+                    },
+                    addBook = { book ->
+                        viewModel.addBook(book)
+                    }
+                )
+            }
         }
     )
-    if(viewModel.openDialog) {
-        AddBookAlertDialog()
-    }
 }
