@@ -20,19 +20,15 @@ class BooksViewModel @Inject constructor(
     var book by mutableStateOf(Book(0, "", ""))
     var isDialogOpen by mutableStateOf(false)
 
-    fun getBooks() {
-        viewModelScope.launch {
-            repo.getBooksFromRoom().collect { response ->
-                books = response
-            }
+    fun getBooks() = viewModelScope.launch {
+        repo.getBooksFromRoom().collect { response ->
+            books = response
         }
     }
 
-    fun getBook(id: Int) {
-        viewModelScope.launch {
-            repo.getBookFromRoom(id).collect { response ->
-                book = response
-            }
+    fun getBook(id: Int) = viewModelScope.launch {
+        repo.getBookFromRoom(id).collect { response ->
+            book = response
         }
     }
 
@@ -45,21 +41,15 @@ class BooksViewModel @Inject constructor(
     }
 
 
-    fun addBook(book: Book) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.addBookToRoom(book)
-        }
+    fun addBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        repo.addBookToRoom(book)
     }
 
-    fun updateBook(book: Book) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.updateBookInRoom(book)
-        }
+    fun updateBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        repo.updateBookInRoom(book)
     }
 
-    fun deleteBook(book: Book) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteBookFromRoom(book)
-        }
+    fun deleteBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        repo.deleteBookFromRoom(book)
     }
 }
