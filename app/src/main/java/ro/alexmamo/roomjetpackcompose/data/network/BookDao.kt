@@ -1,7 +1,7 @@
 package ro.alexmamo.roomjetpackcompose.data.network
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.*
+import androidx.room.OnConflictStrategy.Companion.IGNORE
 import kotlinx.coroutines.flow.Flow
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TABLE
 import ro.alexmamo.roomjetpackcompose.domain.model.Book

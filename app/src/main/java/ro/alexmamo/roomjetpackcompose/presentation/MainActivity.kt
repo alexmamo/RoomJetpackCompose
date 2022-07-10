@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ro.alexmamo.roomjetpackcompose.presentation.navigation.NavGraph
+import ro.alexmamo.roomjetpackcompose.navigation.NavGraph
 
 @AndroidEntryPoint
 @ExperimentalMaterialApi

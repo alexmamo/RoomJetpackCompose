@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.navigation
+package ro.alexmamo.roomjetpackcompose.navigation
 
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOKS_SCREEN
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE_BOOK_SCREEN

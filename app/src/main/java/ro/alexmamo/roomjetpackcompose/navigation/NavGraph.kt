@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.navigation
+package ro.alexmamo.roomjetpackcompose.navigation
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
-import ro.alexmamo.roomjetpackcompose.presentation.navigation.Screen.BooksScreen
-import ro.alexmamo.roomjetpackcompose.presentation.navigation.Screen.UpdateBookScreen
+import ro.alexmamo.roomjetpackcompose.navigation.Screen.BooksScreen
+import ro.alexmamo.roomjetpackcompose.navigation.Screen.UpdateBookScreen
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.UpdateBookScreen
 
 @Composable
