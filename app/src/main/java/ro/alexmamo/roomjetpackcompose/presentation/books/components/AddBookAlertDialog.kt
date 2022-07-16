@@ -30,9 +30,7 @@ fun AddBookAlertDialog(
     val focusRequester = FocusRequester()
 
     AlertDialog(
-        onDismissRequest = {
-            closeDialog()
-        },
+        onDismissRequest = closeDialog,
         title = {
             Text(
                 text = ADD_BOOK
@@ -84,9 +82,7 @@ fun AddBookAlertDialog(
         },
         dismissButton = {
             TextButton(
-                onClick = {
-                    closeDialog()
-                }
+                onClick = closeDialog
             ) {
                 Text(
                     text = DISMISS

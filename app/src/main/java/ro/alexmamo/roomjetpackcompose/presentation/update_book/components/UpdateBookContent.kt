@@ -44,7 +44,9 @@ fun UpdateBookContent(
         )
         TextField(
             value = author,
-            onValueChange = { author -> viewModel.updateAuthor(author) },
+            onValueChange = { author ->
+                viewModel.updateAuthor(author)
+            },
             placeholder = {
                 Text(
                     text = AUTHOR

@@ -15,9 +15,9 @@ import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
 @Composable
 @ExperimentalMaterialApi
 fun BooksContent(
+    viewModel: BooksViewModel = hiltViewModel(),
     padding: PaddingValues,
-    navigateToUpdateBookScreen: (bookId: Int) -> Unit,
-    viewModel: BooksViewModel = hiltViewModel()
+    navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize().padding(padding)

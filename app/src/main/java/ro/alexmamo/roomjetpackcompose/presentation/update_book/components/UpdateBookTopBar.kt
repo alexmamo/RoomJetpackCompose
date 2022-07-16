@@ -22,9 +22,7 @@ fun UpdateBookTopBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = {
-                    navigateToBooksScreen()
-                }
+                onClick = navigateToBooksScreen
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,

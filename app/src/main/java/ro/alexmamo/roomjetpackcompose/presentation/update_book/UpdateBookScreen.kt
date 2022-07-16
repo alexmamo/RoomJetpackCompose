@@ -10,9 +10,9 @@ import ro.alexmamo.roomjetpackcompose.presentation.update_book.components.Update
 
 @Composable
 fun UpdateBookScreen(
+    viewModel: BooksViewModel = hiltViewModel(),
     bookId: Int,
-    navigateToBooksScreen: () -> Unit,
-    viewModel: BooksViewModel = hiltViewModel()
+    navigateToBooksScreen: () -> Unit
 ) {
     LaunchedEffect(Unit) {
         viewModel.getBook(bookId)

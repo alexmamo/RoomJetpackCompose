@@ -59,9 +59,7 @@ fun BookCard(
                 )
             }
             IconButton(
-                onClick = {
-                    deleteBook()
-                }
+                onClick = deleteBook
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
