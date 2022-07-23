@@ -18,7 +18,7 @@ class BooksViewModel @Inject constructor(
 ) : ViewModel() {
     var books by mutableStateOf(emptyList<Book>())
     var book by mutableStateOf(Book(0, "", ""))
-    var isDialogOpen by mutableStateOf(false)
+    var openDialog by mutableStateOf(false)
 
     fun getBooks() = viewModelScope.launch {
         repo.getBooksFromRoom().collect { response ->
@@ -32,15 +32,6 @@ class BooksViewModel @Inject constructor(
         }
     }
 
-    fun updateTitle(title: String) {
-        book = book.copy(title = title)
-    }
-
-    fun updateAuthor(author: String) {
-        book = book.copy(author = author)
-    }
-
-
     fun addBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
         repo.addBookToRoom(book)
     }
@@ -51,5 +42,25 @@ class BooksViewModel @Inject constructor(
 
     fun deleteBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
         repo.deleteBookFromRoom(book)
+    }
+
+    fun updateTitle(title: String) {
+        book = book.copy(
+            title = title
+        )
+    }
+
+    fun updateAuthor(author: String) {
+        book = book.copy(
+            author = author
+        )
+    }
+
+    fun openDialog() {
+        openDialog = true
+    }
+
+    fun closeDialog() {
+        openDialog = false
     }
 }

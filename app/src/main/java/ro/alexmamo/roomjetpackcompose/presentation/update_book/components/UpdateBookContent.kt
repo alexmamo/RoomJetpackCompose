@@ -5,12 +5,13 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.TITLE
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
@@ -19,9 +20,12 @@ import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
 fun UpdateBookContent(
     padding: PaddingValues,
     bookId: Int,
-    navigateToBooksScreen: () -> Unit,
+    navigateBack: () -> Unit,
     viewModel: BooksViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.getBook(bookId)
+    }
     val title = viewModel.book.title
     val author = viewModel.book.author
 
@@ -32,15 +36,17 @@ fun UpdateBookContent(
     ) {
         TextField(
             value = title,
-            onValueChange = { title -> viewModel.updateTitle(title) },
+            onValueChange = { title ->
+                viewModel.updateTitle(title)
+            },
             placeholder = {
                 Text(
-                    text = TITLE
+                    text = BOOK_TITLE
                 )
             }
         )
         Spacer(
-            modifier = Modifier.height(16.dp)
+            modifier = Modifier.height(8.dp)
         )
         TextField(
             value = author,
@@ -57,7 +63,7 @@ fun UpdateBookContent(
             onClick = {
                 val updatedBook = Book(bookId, title, author)
                 viewModel.updateBook(updatedBook)
-                navigateToBooksScreen()
+                navigateBack()
             }
         ) {
             Text(

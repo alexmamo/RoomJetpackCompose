@@ -43,9 +43,8 @@ android {
 dependencies {
     //AndroidX
     implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    //Navigation
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    //Material
+    implementation "com.google.android.material:material:$material_version"
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

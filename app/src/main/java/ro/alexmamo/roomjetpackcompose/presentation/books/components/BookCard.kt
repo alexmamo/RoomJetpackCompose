@@ -40,11 +40,17 @@ fun BookCard(
         }
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(all = 12.dp),
+            modifier = Modifier.fillMaxWidth()
+                .padding(
+                    all = 12.dp
+                ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(0.90f)
+                modifier = Modifier
+                    .fillMaxWidth(
+                        fraction = 0.90f
+                    )
             ){
                 Text(
                     text = book.title,

@@ -41,7 +41,7 @@ fun NavGraph (
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: 0
             UpdateBookScreen(
                 bookId = bookId,
-                navigateToBooksScreen = {
+                navigateBack = {
                     navController.popBackStack()
                 }
             )

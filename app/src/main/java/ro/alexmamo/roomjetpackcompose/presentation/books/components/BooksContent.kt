@@ -1,6 +1,5 @@
 package ro.alexmamo.roomjetpackcompose.presentation.books.components
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,31 +8,29 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
+import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
 @ExperimentalMaterialApi
 fun BooksContent(
-    viewModel: BooksViewModel = hiltViewModel(),
     padding: PaddingValues,
+    books: List<Book>,
+    deleteBook: (book: Book) -> Unit,
     navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
-    Box(
+    LazyColumn(
         modifier = Modifier.fillMaxSize().padding(padding)
     ) {
-        LazyColumn {
-            items(
-                items = viewModel.books
-            ) { book ->
-                BookCard(
-                    book = book,
-                    deleteBook = {
-                        viewModel.deleteBook(book)
-                    },
-                    navigateToUpdateBookScreen = navigateToUpdateBookScreen
-                )
-            }
+        items(
+            items = books
+        ) { book ->
+            BookCard(
+                book = book,
+                deleteBook = {
+                    deleteBook(book)
+                },
+                navigateToUpdateBookScreen = navigateToUpdateBookScreen
+            )
         }
     }
 }
