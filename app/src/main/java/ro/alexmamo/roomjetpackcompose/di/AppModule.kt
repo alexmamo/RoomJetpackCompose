@@ -34,5 +34,7 @@ class AppModule {
     @Provides
     fun provideBookRepository(
         bookDao: BookDao
-    ): BookRepository = BookRepositoryImpl(bookDao)
+    ): BookRepository = BookRepositoryImpl(
+        bookDao = bookDao
+    )
 }

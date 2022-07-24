@@ -21,14 +21,14 @@ class BooksViewModel @Inject constructor(
     var openDialog by mutableStateOf(false)
 
     fun getBooks() = viewModelScope.launch {
-        repo.getBooksFromRoom().collect { response ->
-            books = response
+        repo.getBooksFromRoom().collect { dbBooks ->
+            books = dbBooks
         }
     }
 
     fun getBook(id: Int) = viewModelScope.launch {
-        repo.getBookFromRoom(id).collect { response ->
-            book = response
+        repo.getBookFromRoom(id).collect { dbBook ->
+            book = dbBook
         }
     }
 
