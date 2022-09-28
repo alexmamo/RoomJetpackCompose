@@ -18,6 +18,7 @@ class BooksViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
     var book by mutableStateOf(Book(0, NO_VALUE, NO_VALUE))
+        private set
     var openDialog by mutableStateOf(false)
 
     val books = repo.getBooksFromRoom()
