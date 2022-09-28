@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.NO_VALUE
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 import javax.inject.Inject
@@ -16,15 +17,10 @@ import javax.inject.Inject
 class BooksViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    var books by mutableStateOf(emptyList<Book>())
-    var book by mutableStateOf(Book(0, "", ""))
+    var book by mutableStateOf(Book(0, NO_VALUE, NO_VALUE))
     var openDialog by mutableStateOf(false)
 
-    fun getBooks() = viewModelScope.launch {
-        repo.getBooksFromRoom().collect { dbBooks ->
-            books = dbBooks
-        }
-    }
+    val books = repo.getBooksFromRoom()
 
     fun getBook(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         book = repo.getBookFromRoom(id)

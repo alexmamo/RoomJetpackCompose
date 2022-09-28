@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ro.alexmamo.roomjetpackcompose.data.network.Books
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
+import ro.alexmamo.roomjetpackcompose.domain.repository.Books
 
 @Composable
 @ExperimentalMaterialApi

@@ -3,7 +3,8 @@ package ro.alexmamo.roomjetpackcompose.presentation.books
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import ro.alexmamo.roomjetpackcompose.presentation.books.components.AddBookAlertDialog
 import ro.alexmamo.roomjetpackcompose.presentation.books.components.AddBookFloatingActionButton
@@ -16,9 +17,10 @@ fun BooksScreen(
     viewModel: BooksViewModel = hiltViewModel(),
     navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
-    LaunchedEffect(Unit) {
-        viewModel.getBooks()
-    }
+    val books by viewModel.books.collectAsState(
+        initial = emptyList()
+    )
+
     Scaffold(
         topBar = {
             BooksTopBar()
@@ -26,7 +28,7 @@ fun BooksScreen(
         content = { padding ->
             BooksContent(
                 padding = padding,
-                books = viewModel.books,
+                books = books,
                 deleteBook = { book ->
                     viewModel.deleteBook(book)
                 },
