@@ -8,13 +8,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ro.alexmamo.roomjetpackcompose.data.network.Books
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
 @ExperimentalMaterialApi
 fun BooksContent(
     padding: PaddingValues,
-    books: List<Book>,
+    books: Books,
     deleteBook: (book: Book) -> Unit,
     navigateToUpdateBookScreen: (bookId: Int) -> Unit
 ) {
