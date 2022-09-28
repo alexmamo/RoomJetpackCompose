@@ -7,6 +7,7 @@ import androidx.navigation.NavType.Companion.IntType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_ID
 import ro.alexmamo.roomjetpackcompose.navigation.Screen.BooksScreen
 import ro.alexmamo.roomjetpackcompose.navigation.Screen.UpdateBookScreen
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
@@ -31,14 +32,14 @@ fun NavGraph (
             )
         }
         composable(
-            route = "${UpdateBookScreen.route}/{bookId}",
+            route = "${UpdateBookScreen.route}/{$BOOK_ID}",
             arguments = listOf(
-                navArgument("bookId") {
+                navArgument(BOOK_ID) {
                     type = IntType
                 }
             )
         ) { backStackEntry ->
-            val bookId = backStackEntry.arguments?.getInt("bookId") ?: 0
+            val bookId = backStackEntry.arguments?.getInt(BOOK_ID) ?: 0
             UpdateBookScreen(
                 bookId = bookId,
                 navigateBack = {

@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "ro.alexmamo.roomjetpackcompose"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -46,7 +46,7 @@ dependencies {
     //Navigation Compose
     implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
     //Jetpack Compose
-    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material:$material_version"
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

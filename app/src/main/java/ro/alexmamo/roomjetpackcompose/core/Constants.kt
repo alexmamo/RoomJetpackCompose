@@ -9,6 +9,9 @@ class Constants {
         const val BOOKS_SCREEN = "Books"
         const val UPDATE_BOOK_SCREEN = "Update book"
 
+        //Arguments
+        const val BOOK_ID = "bookId"
+
         //Actions
         const val ADD_BOOK = "Add a book."
         const val DELETE_BOOK = "Delete a book."
