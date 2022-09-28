@@ -26,10 +26,8 @@ class BooksViewModel @Inject constructor(
         }
     }
 
-    fun getBook(id: Int) = viewModelScope.launch {
-        repo.getBookFromRoom(id).collect { dbBook ->
-            book = dbBook
-        }
+    fun getBook(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        book = repo.getBookFromRoom(id)
     }
 
     fun addBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {

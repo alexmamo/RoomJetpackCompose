@@ -16,9 +16,9 @@ import kotlinx.coroutines.job
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD_BOOK
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_STRING
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.NO_VALUE
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
@@ -28,8 +28,8 @@ fun AddBookAlertDialog(
     addBook: (book: Book) -> Unit
 ) {
     if (openDialog) {
-        var title by remember { mutableStateOf(EMPTY_STRING) }
-        var author by remember { mutableStateOf(EMPTY_STRING) }
+        var title by remember { mutableStateOf(NO_VALUE) }
+        var author by remember { mutableStateOf(NO_VALUE) }
         val focusRequester = FocusRequester()
 
         AlertDialog(
