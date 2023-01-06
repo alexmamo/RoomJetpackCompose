@@ -41,12 +41,9 @@ android {
 }
 
 dependencies {
-    //ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
-    //Navigation Compose
-    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
-    //Jetpack Compose
-    implementation "androidx.compose.material:material:$material_version"
+    //Compose
+    implementation platform("androidx.compose:compose-bom:$compose_bom_version")
+    implementation "androidx.compose.material:material"
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
