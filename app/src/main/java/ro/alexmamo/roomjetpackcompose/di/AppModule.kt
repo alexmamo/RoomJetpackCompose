@@ -19,7 +19,7 @@ class AppModule {
     @Provides
     fun provideBookDb(
         @ApplicationContext
-        context : Context
+        context: Context
     ) = Room.databaseBuilder(
         context,
         BookDb::class.java,
@@ -29,7 +29,7 @@ class AppModule {
     @Provides
     fun provideBookDao(
         bookDb: BookDb
-    ) = bookDb.bookDao()
+    ) = bookDb.bookDao
 
     @Provides
     fun provideBookRepository(
