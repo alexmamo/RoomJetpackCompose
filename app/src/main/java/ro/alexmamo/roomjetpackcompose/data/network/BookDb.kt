@@ -2,6 +2,7 @@ package ro.alexmamo.roomjetpackcompose.data.network
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Database(

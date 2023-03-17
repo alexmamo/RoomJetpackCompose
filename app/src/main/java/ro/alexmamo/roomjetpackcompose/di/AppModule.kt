@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TABLE
-import ro.alexmamo.roomjetpackcompose.data.network.BookDao
+import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.data.network.BookDb
 import ro.alexmamo.roomjetpackcompose.data.repository.BookRepositoryImpl
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository

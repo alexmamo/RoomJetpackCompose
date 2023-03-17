@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.data.network
+package ro.alexmamo.roomjetpackcompose.data.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.IGNORE

@@ -1,6 +1,6 @@
 package ro.alexmamo.roomjetpackcompose.data.repository
 
-import ro.alexmamo.roomjetpackcompose.data.network.BookDao
+import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 
