@@ -8,11 +8,11 @@ typealias Books = List<Book>
 interface BookRepository {
     fun getBooksFromRoom(): Flow<Books>
 
-    fun getBookFromRoom(id: Int): Book
+    suspend fun getBookFromRoom(id: Int): Book
 
-    fun addBookToRoom(book: Book)
+    suspend fun addBookToRoom(book: Book)
 
-    fun updateBookInRoom(book: Book)
+    suspend fun updateBookInRoom(book: Book)
 
-    fun deleteBookFromRoom(book: Book)
+    suspend fun deleteBookFromRoom(book: Book)
 }

@@ -9,11 +9,11 @@ class BookRepositoryImpl(
 ) : BookRepository {
     override fun getBooksFromRoom() = bookDao.getBooks()
 
-    override fun getBookFromRoom(id: Int) = bookDao.getBook(id)
+    override suspend fun getBookFromRoom(id: Int) = bookDao.getBook(id)
 
-    override fun addBookToRoom(book: Book) = bookDao.addBook(book)
+    override suspend fun addBookToRoom(book: Book) = bookDao.addBook(book)
 
-    override fun updateBookInRoom(book: Book) = bookDao.updateBook(book)
+    override suspend fun updateBookInRoom(book: Book) = bookDao.updateBook(book)
 
-    override fun deleteBookFromRoom(book: Book) = bookDao.deleteBook(book)
+    override suspend fun deleteBookFromRoom(book: Book) = bookDao.deleteBook(book)
 }

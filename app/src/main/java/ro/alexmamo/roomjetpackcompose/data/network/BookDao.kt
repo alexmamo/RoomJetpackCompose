@@ -13,14 +13,14 @@ interface BookDao {
     fun getBooks(): Flow<Books>
 
     @Query("SELECT * FROM $BOOK_TABLE WHERE id = :id")
-    fun getBook(id: Int): Book
+    suspend fun getBook(id: Int): Book
 
     @Insert(onConflict = IGNORE)
-    fun addBook(book: Book)
+    suspend fun addBook(book: Book)
 
     @Update
-    fun updateBook(book: Book)
+    suspend fun updateBook(book: Book)
 
     @Delete
-    fun deleteBook(book: Book)
+    suspend fun deleteBook(book: Book)
 }

@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.NO_VALUE
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
@@ -23,19 +22,19 @@ class BooksViewModel @Inject constructor(
 
     val books = repo.getBooksFromRoom()
 
-    fun getBook(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun getBook(id: Int) = viewModelScope.launch {
         book = repo.getBookFromRoom(id)
     }
 
-    fun addBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+    fun addBook(book: Book) = viewModelScope.launch {
         repo.addBookToRoom(book)
     }
 
-    fun updateBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+    fun updateBook(book: Book) = viewModelScope.launch {
         repo.updateBookInRoom(book)
     }
 
-    fun deleteBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteBook(book: Book) = viewModelScope.launch {
         repo.deleteBookFromRoom(book)
     }
 
