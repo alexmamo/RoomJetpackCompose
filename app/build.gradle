@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace 'ro.alexmamo.roomjetpackcompose'
     compileSdk 33
 
     defaultConfig {
@@ -37,7 +38,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
     }
-    namespace 'ro.alexmamo.roomjetpackcompose'
 }
 
 dependencies {
