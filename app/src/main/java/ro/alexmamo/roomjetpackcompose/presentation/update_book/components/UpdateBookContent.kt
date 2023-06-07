@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE_BUTTON
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
@@ -59,7 +59,7 @@ fun UpdateBookContent(
             }
         ) {
             Text(
-                text = UPDATE
+                text = UPDATE_BUTTON
             )
         }
     }

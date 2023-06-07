@@ -13,12 +13,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.job
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD_BUTTON
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD_BOOK
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.NO_VALUE
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS_BUTTON
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_STRING
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
@@ -28,8 +28,8 @@ fun AddBookAlertDialog(
     addBook: (book: Book) -> Unit
 ) {
     if (openDialog) {
-        var title by remember { mutableStateOf(NO_VALUE) }
-        var author by remember { mutableStateOf(NO_VALUE) }
+        var title by remember { mutableStateOf(EMPTY_STRING) }
+        var author by remember { mutableStateOf(EMPTY_STRING) }
         val focusRequester = FocusRequester()
 
         AlertDialog(
@@ -79,7 +79,7 @@ fun AddBookAlertDialog(
                     }
                 ) {
                     Text(
-                        text = ADD
+                        text = ADD_BUTTON
                     )
                 }
             },
@@ -88,7 +88,7 @@ fun AddBookAlertDialog(
                     onClick = closeDialog
                 ) {
                     Text(
-                        text = DISMISS
+                        text = DISMISS_BUTTON
                     )
                 }
             }

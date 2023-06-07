@@ -17,13 +17,13 @@ class Constants {
         const val DELETE_BOOK = "Delete a book."
 
         //Buttons
-        const val ADD = "Add"
-        const val DISMISS = "Dismiss"
-        const val UPDATE = "Update"
+        const val ADD_BUTTON = "Add"
+        const val DISMISS_BUTTON = "Dismiss"
+        const val UPDATE_BUTTON = "Update"
 
         //Placeholders
         const val BOOK_TITLE = "Type a book title..."
         const val AUTHOR = "Type the author name..."
-        const val NO_VALUE = ""
+        const val EMPTY_STRING = ""
     }
 }
