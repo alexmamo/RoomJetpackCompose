@@ -8,6 +8,6 @@ import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TABLE
 data class Book(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    var title: String,
-    var author: String
+    val title: String,
+    val author: String
 )
