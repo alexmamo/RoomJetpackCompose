@@ -1,8 +1,11 @@
 package ro.alexmamo.roomjetpackcompose.presentation.books.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,43 +14,40 @@ import androidx.compose.ui.unit.dp
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
-@ExperimentalMaterialApi
 fun BookCard(
     book: Book,
     deleteBook: () -> Unit,
-    navigateToUpdateBookScreen: (bookId: Int) -> Unit
+    updateBook: () -> Unit
 ) {
     Card(
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier
-            .padding(
+        modifier = Modifier.padding(
                 start = 8.dp,
                 end = 8.dp,
                 top = 4.dp,
                 bottom = 4.dp
-            )
-            .fillMaxWidth(),
-        elevation = 3.dp,
-        onClick = {
-            navigateToUpdateBookScreen(book.id)
-        }
+            ).fillMaxWidth(),
+        elevation = 3.dp
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                TextTitle(
+                BookTitleText(
                     bookTitle = book.title
                 )
-                TextAuthor(
+                AuthorText(
                     bookAuthor = book.author
                 )
             }
             Spacer(
                 modifier = Modifier.weight(1f)
             )
-            DeleteIcon(
+            EditBookIcon(
+                editBook = updateBook
+            )
+            DeleteBookIcon(
                 deleteBook = deleteBook
             )
         }

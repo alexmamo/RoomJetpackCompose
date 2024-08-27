@@ -1,20 +1,18 @@
 package ro.alexmamo.roomjetpackcompose.navigation
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType.Companion.IntType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_ID
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ID
 import ro.alexmamo.roomjetpackcompose.navigation.Screen.BooksScreen
 import ro.alexmamo.roomjetpackcompose.navigation.Screen.UpdateBookScreen
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.UpdateBookScreen
 
 @Composable
-@ExperimentalMaterialApi
 fun NavGraph (
     navController: NavHostController
 ) {
@@ -26,24 +24,23 @@ fun NavGraph (
             route = BooksScreen.route
         ) {
             BooksScreen(
-                navigateToUpdateBookScreen = { bookId ->
+                navigateToUpdateBookScreen = { id ->
                     navController.navigate(
-                        route = "${UpdateBookScreen.route}/${bookId}"
+                        route = UpdateBookScreen.withArgs(id)
                     )
                 }
             )
         }
         composable(
-            route = "${UpdateBookScreen.route}/{$BOOK_ID}",
+            route = "${UpdateBookScreen.route}/{$ID}",
             arguments = listOf(
-                navArgument(BOOK_ID) {
+                navArgument(ID) {
                     type = IntType
                 }
             )
-        ) { backStackEntry ->
-            val bookId = backStackEntry.arguments?.getInt(BOOK_ID) ?: 0
+        ) { entry ->
             UpdateBookScreen(
-                bookId = bookId,
+                id = entry.arguments?.getInt(ID) ?: 0,
                 navigateBack = {
                     navController.popBackStack()
                 }

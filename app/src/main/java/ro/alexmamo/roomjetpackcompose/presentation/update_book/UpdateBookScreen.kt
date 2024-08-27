@@ -3,20 +3,25 @@ package ro.alexmamo.roomjetpackcompose.presentation.update_book
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import ro.alexmamo.roomjetpackcompose.presentation.books.BooksViewModel
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_AUTHOR_MESSAGE
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_TITLE_MESSAGE
+import ro.alexmamo.roomjetpackcompose.core.toastMessage
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.components.UpdateBookContent
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.components.UpdateBookTopBar
 
 @Composable
 fun UpdateBookScreen(
-    viewModel: BooksViewModel = hiltViewModel(),
-    bookId: Int,
+    viewModel: UpdateBookViewModel = hiltViewModel(),
+    id: Int,
     navigateBack: () -> Unit
 ) {
-    LaunchedEffect(Unit) {
-        viewModel.getBook(bookId)
+    val context = LocalContext.current
+    LaunchedEffect(id) {
+        viewModel.getBookById(id)
     }
+
     Scaffold(
         topBar = {
             UpdateBookTopBar(
@@ -27,14 +32,20 @@ fun UpdateBookScreen(
             UpdateBookContent(
                 padding = padding,
                 book = viewModel.book,
-                updateTitle = { title ->
-                    viewModel.updateTitle(title)
+                showEmptyTitleMessage = {
+                    toastMessage(context, EMPTY_TITLE_MESSAGE)
                 },
-                updateAuthor = { author ->
-                    viewModel.updateAuthor(author)
+                updateBookTitle = { title ->
+                    viewModel.updateBookTitle(title)
                 },
-                updateBook = { book ->
-                    viewModel.updateBook(book)
+                showEmptyAuthorMessage = {
+                    toastMessage(context, EMPTY_AUTHOR_MESSAGE)
+                },
+                updateBookAuthor = { author ->
+                    viewModel.updateBookAuthor(author)
+                },
+                updateBook = {
+                    viewModel.updateBook()
                 },
                 navigateBack = navigateBack
             )

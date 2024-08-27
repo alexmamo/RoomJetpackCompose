@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DELETE_BOOK
 
 @Composable
-fun DeleteIcon(
+fun DeleteBookIcon(
     deleteBook: () -> Unit
 ) {
     IconButton(

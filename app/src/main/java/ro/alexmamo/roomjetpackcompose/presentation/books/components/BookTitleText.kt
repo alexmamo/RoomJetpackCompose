@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextTitle(
+fun BookTitleText(
     bookTitle: String
 ) {
     Text(

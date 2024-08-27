@@ -7,7 +7,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextAuthor(
+fun AuthorText(
     bookAuthor: String
 ) {
     Text(

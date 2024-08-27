@@ -6,13 +6,13 @@ import ro.alexmamo.roomjetpackcompose.domain.model.Book
 typealias Books = List<Book>
 
 interface BookRepository {
-    fun getBooksFromRoom(): Flow<Books>
+    fun getBooks(): Flow<Books>
 
-    suspend fun getBookFromRoom(id: Int): Book
+    suspend fun getBookById(id: Int): Book
 
-    suspend fun addBookToRoom(book: Book)
+    suspend fun insertBook(book: Book)
 
-    suspend fun updateBookInRoom(book: Book)
+    suspend fun updateBook(book: Book)
 
-    suspend fun deleteBookFromRoom(book: Book)
+    suspend fun deleteBook(book: Book)
 }

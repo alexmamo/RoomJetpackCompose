@@ -1,6 +1,12 @@
 package ro.alexmamo.roomjetpackcompose.presentation.update_book.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -17,20 +23,24 @@ import ro.alexmamo.roomjetpackcompose.domain.model.Book
 fun UpdateBookContent(
     padding: PaddingValues,
     book: Book,
-    updateTitle: (title: String) -> Unit,
-    updateAuthor: (author: String) -> Unit,
-    updateBook: (book: Book) -> Unit,
+    showEmptyTitleMessage: () -> Unit,
+    updateBookTitle: (title: String) -> Unit,
+    showEmptyAuthorMessage: () -> Unit,
+    updateBookAuthor: (author: String) -> Unit,
+    updateBook: () -> Unit,
     navigateBack: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
             value = book.title,
-            onValueChange = { title ->
-                updateTitle(title)
+            onValueChange = { newTitle ->
+                updateBookTitle(newTitle)
             },
             placeholder = {
                 Text(
@@ -43,8 +53,8 @@ fun UpdateBookContent(
         )
         TextField(
             value = book.author,
-            onValueChange = { author ->
-                updateAuthor(author)
+            onValueChange = { newAuthor ->
+                updateBookAuthor(newAuthor)
             },
             placeholder = {
                 Text(
@@ -54,7 +64,15 @@ fun UpdateBookContent(
         )
         Button(
             onClick = {
-                updateBook(book)
+                if (book.title.isEmpty()) {
+                    showEmptyTitleMessage()
+                    return@Button
+                }
+                if (book.author.isEmpty()) {
+                    showEmptyAuthorMessage()
+                    return@Button
+                }
+                updateBook()
                 navigateBack()
             }
         ) {

@@ -5,19 +5,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.repository.Books
 
 @Composable
-@ExperimentalMaterialApi
 fun BooksContent(
     padding: PaddingValues,
     books: Books,
     deleteBook: (book: Book) -> Unit,
-    navigateToUpdateBookScreen: (bookId: Int) -> Unit
+    navigateToUpdateBookScreen: (id: Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(padding)
@@ -30,7 +28,9 @@ fun BooksContent(
                 deleteBook = {
                     deleteBook(book)
                 },
-                navigateToUpdateBookScreen = navigateToUpdateBookScreen
+                updateBook = {
+                    navigateToUpdateBookScreen(book.id)
+                }
             )
         }
     }

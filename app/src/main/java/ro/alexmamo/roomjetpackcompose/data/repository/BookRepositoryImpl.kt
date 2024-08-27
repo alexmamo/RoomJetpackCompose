@@ -7,13 +7,13 @@ import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 class BookRepositoryImpl(
     private val bookDao: BookDao
 ) : BookRepository {
-    override fun getBooksFromRoom() = bookDao.getBooks()
+    override fun getBooks() = bookDao.getBooks()
 
-    override suspend fun getBookFromRoom(id: Int) = bookDao.getBook(id)
+    override suspend fun getBookById(id: Int) = bookDao.getBookById(id)
 
-    override suspend fun addBookToRoom(book: Book) = bookDao.addBook(book)
+    override suspend fun insertBook(book: Book) = bookDao.addBook(book)
 
-    override suspend fun updateBookInRoom(book: Book) = bookDao.updateBook(book)
+    override suspend fun updateBook(book: Book) = bookDao.updateBook(book)
 
-    override suspend fun deleteBookFromRoom(book: Book) = bookDao.deleteBook(book)
+    override suspend fun deleteBook(book: Book) = bookDao.deleteBook(book)
 }
