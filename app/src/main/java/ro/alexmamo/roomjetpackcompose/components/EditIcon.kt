@@ -1,22 +1,21 @@
-package ro.alexmamo.roomjetpackcompose.presentation.books.components
+package ro.alexmamo.roomjetpackcompose.components
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EDIT_BOOK
 
 @Composable
-fun EditBookIcon(
-    editBook: () -> Unit
+fun EditIcon(
+    onEditIconClick: () -> Unit
 ) {
     IconButton(
-        onClick = editBook
+        onClick = onEditIconClick
     ) {
         Icon(
             imageVector = Icons.Default.Edit,
-            contentDescription = EDIT_BOOK,
+            contentDescription = null,
         )
     }
 }

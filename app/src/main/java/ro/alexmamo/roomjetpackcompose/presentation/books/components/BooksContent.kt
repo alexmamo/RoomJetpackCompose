@@ -25,10 +25,10 @@ fun BooksContent(
         ) { book ->
             BookCard(
                 book = book,
-                deleteBook = {
+                onDeleteIconClick = {
                     deleteBook(book)
                 },
-                updateBook = {
+                onEditIconClick = {
                     navigateToUpdateBookScreen(book.id)
                 }
             )

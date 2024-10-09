@@ -1,22 +1,21 @@
-package ro.alexmamo.roomjetpackcompose.presentation.books.components
+package ro.alexmamo.roomjetpackcompose.components
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DELETE_BOOK
 
 @Composable
-fun DeleteBookIcon(
-    deleteBook: () -> Unit
+fun DeleteIcon(
+    onDeleteIconClick: () -> Unit
 ) {
     IconButton(
-        onClick = deleteBook
+        onClick = onDeleteIconClick
     ) {
         Icon(
             imageVector = Icons.Default.Delete,
-            contentDescription = DELETE_BOOK,
+            contentDescription = null,
         )
     }
 }

@@ -2,6 +2,9 @@ package ro.alexmamo.roomjetpackcompose.core
 
 class Constants {
     companion object {
+        //App
+        const val TAG = "AppTag"
+
         //Room
         const val BOOK_TABLE = "book_table"
 
@@ -13,12 +16,10 @@ class Constants {
         const val ID = "id"
 
         //Actions
-        const val ADD_BOOK = "Add a book."
-        const val EDIT_BOOK = "Edit a book"
-        const val DELETE_BOOK = "Delete a book."
+        const val INSERT_BOOK = "Insert a book."
 
         //Buttons
-        const val ADD_BUTTON = "Add"
+        const val INSERT_BUTTON = "Insert"
         const val DISMISS_BUTTON = "Dismiss"
         const val UPDATE_BUTTON = "Update"
 
@@ -30,5 +31,7 @@ class Constants {
         //Messages
         const val EMPTY_TITLE_MESSAGE = "Title cannot be empty."
         const val EMPTY_AUTHOR_MESSAGE = "Author cannot be empty."
+        const val NO_UPDATES_MESSAGE = "No updates performed."
+        const val EMPTY_BOOK_LIST_MESSAGE = "The book list is empty."
     }
 }

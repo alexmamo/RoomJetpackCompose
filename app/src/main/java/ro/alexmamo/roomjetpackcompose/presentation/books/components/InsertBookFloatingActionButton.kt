@@ -6,10 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ADD_BOOK
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BOOK
 
 @Composable
-fun AddBookFloatingActionButton(
+fun InsertBookFloatingActionButton(
     openDialog: () -> Unit
 ) {
     FloatingActionButton(
@@ -18,7 +18,7 @@ fun AddBookFloatingActionButton(
     ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = ADD_BOOK
+            contentDescription = INSERT_BOOK
         )
     }
 }

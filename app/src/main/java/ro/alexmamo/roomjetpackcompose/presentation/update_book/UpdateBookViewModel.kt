@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_STRING
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
+import ro.alexmamo.roomjetpackcompose.domain.model.Response
+import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 import javax.inject.Inject
 
@@ -16,30 +17,16 @@ import javax.inject.Inject
 class UpdateBookViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    var book by mutableStateOf(Book(0, EMPTY_STRING, EMPTY_STRING))
+    var bookResponse by mutableStateOf<Response<Book>>(Loading)
+        private set
+    var updateBookResponse by mutableStateOf<Response<Unit>>(Loading)
         private set
 
-    fun getBookById(id: Int) = viewModelScope.launch {
-        book = repo.getBookById(
-            id = id
-        )
+    fun getBook(id: Int) = viewModelScope.launch {
+        bookResponse = repo.getBook(id)
     }
 
-    fun updateBookTitle(title: String) {
-        book = book.copy(
-            title = title
-        )
-    }
-
-    fun updateBookAuthor(author: String) {
-        book = book.copy(
-            author = author
-        )
-    }
-
-    fun updateBook() = viewModelScope.launch {
-        repo.updateBook(
-            book = book
-        )
+    fun updateBook(book: Book) = viewModelScope.launch {
+        updateBookResponse = repo.updateBook(book)
     }
 }

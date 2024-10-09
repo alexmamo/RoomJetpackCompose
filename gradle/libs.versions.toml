@@ -1,14 +1,14 @@
 [versions]
 #Android
-gradle = "8.5.2"
+gradle = "8.7.0"
 #Kotlin
 kotlin = "2.0.20"
 #Ksp
-devtoolsKsp = "2.0.20-1.0.24"
+devtoolsKsp = "2.0.20-1.0.25"
 #Hilt
 hiltAndroid = "2.52"
 #Libraries
-composeBom = "2024.08.00"
+composeBom = "2024.09.03"
 compose = "1.5.15"
 navigationCompose = "1.2.0"
 room = "2.6.1"
@@ -23,6 +23,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndro
 [libraries]
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-material = { module = "androidx.compose.material:material" }
+compose-material-icons = { module = "androidx.compose.material:material-icons-extended" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }

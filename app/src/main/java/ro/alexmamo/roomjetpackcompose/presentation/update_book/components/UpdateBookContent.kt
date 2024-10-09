@@ -11,6 +11,10 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,23 +28,24 @@ fun UpdateBookContent(
     padding: PaddingValues,
     book: Book,
     showEmptyTitleMessage: () -> Unit,
-    updateBookTitle: (title: String) -> Unit,
     showEmptyAuthorMessage: () -> Unit,
-    updateBookAuthor: (author: String) -> Unit,
-    updateBook: () -> Unit,
+    updateBook: (book: Book) -> Unit,
+    showNoUpdatesMessage: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    var updatedBook by remember { mutableStateOf(book) }
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
+        modifier = Modifier.fillMaxSize().padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = book.title,
+            value = updatedBook.title,
             onValueChange = { newTitle ->
-                updateBookTitle(newTitle)
+                updatedBook = updatedBook.copy(
+                    title = newTitle
+                )
             },
             placeholder = {
                 Text(
@@ -52,9 +57,11 @@ fun UpdateBookContent(
             modifier = Modifier.height(8.dp)
         )
         TextField(
-            value = book.author,
+            value = updatedBook.author,
             onValueChange = { newAuthor ->
-                updateBookAuthor(newAuthor)
+                updatedBook = updatedBook.copy(
+                    author = newAuthor
+                )
             },
             placeholder = {
                 Text(
@@ -64,15 +71,19 @@ fun UpdateBookContent(
         )
         Button(
             onClick = {
-                if (book.title.isEmpty()) {
+                if (updatedBook.title.isEmpty()) {
                     showEmptyTitleMessage()
                     return@Button
                 }
-                if (book.author.isEmpty()) {
+                if (updatedBook.author.isEmpty()) {
                     showEmptyAuthorMessage()
                     return@Button
                 }
-                updateBook()
+                if (updatedBook != book) {
+                    updateBook(updatedBook)
+                } else {
+                    showNoUpdatesMessage()
+                }
                 navigateBack()
             }
         ) {
