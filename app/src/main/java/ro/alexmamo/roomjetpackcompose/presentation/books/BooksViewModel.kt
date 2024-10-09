@@ -8,9 +8,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.model.Response
 import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
+import ro.alexmamo.roomjetpackcompose.domain.repository.DeleteBookResponse
+import ro.alexmamo.roomjetpackcompose.domain.repository.InsertBookResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,9 +20,9 @@ class BooksViewModel @Inject constructor(
 ) : ViewModel() {
     val response = repo.getBooks()
 
-    var insertBookResponse by mutableStateOf<Response<Unit>>(Loading)
+    var insertBookResponse by mutableStateOf<InsertBookResponse>(Loading)
         private set
-    var deleteBookResponse by mutableStateOf<Response<Unit>>(Loading)
+    var deleteBookResponse by mutableStateOf<DeleteBookResponse>(Loading)
         private set
 
     fun insertBook(book: Book) = viewModelScope.launch {

@@ -8,18 +8,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.model.Response
 import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
+import ro.alexmamo.roomjetpackcompose.domain.repository.BookResponse
+import ro.alexmamo.roomjetpackcompose.domain.repository.UpdateBookResponse
 import javax.inject.Inject
 
 @HiltViewModel
 class UpdateBookViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    var bookResponse by mutableStateOf<Response<Book>>(Loading)
+    var bookResponse by mutableStateOf<BookResponse>(Loading)
         private set
-    var updateBookResponse by mutableStateOf<Response<Unit>>(Loading)
+    var updateBookResponse by mutableStateOf<UpdateBookResponse>(Loading)
         private set
 
     fun getBook(id: Int) = viewModelScope.launch {
