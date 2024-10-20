@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.job
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BOOK
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BUTTON
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR_NAME
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS_BUTTON
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_STRING
@@ -73,7 +73,7 @@ fun InsertBookAlertDialog(
                     },
                     placeholder = {
                         Text(
-                            text = AUTHOR
+                            text = AUTHOR_NAME
                         )
                     }
                 )

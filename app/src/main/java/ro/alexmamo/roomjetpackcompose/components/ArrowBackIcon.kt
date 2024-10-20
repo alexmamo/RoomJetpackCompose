@@ -5,6 +5,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.NAVIGATE_BACK
 
 @Composable
 fun ArrowBackIcon(
@@ -15,7 +16,7 @@ fun ArrowBackIcon(
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-            contentDescription = null,
+            contentDescription = NAVIGATE_BACK,
         )
     }
 }

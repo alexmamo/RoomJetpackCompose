@@ -2,13 +2,11 @@ package ro.alexmamo.roomjetpackcompose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType.Companion.IntType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.ID
-import ro.alexmamo.roomjetpackcompose.navigation.Screen.BooksScreen
-import ro.alexmamo.roomjetpackcompose.navigation.Screen.UpdateBookScreen
+import androidx.navigation.toRoute
+import ro.alexmamo.roomjetpackcompose.core.toBook
+import ro.alexmamo.roomjetpackcompose.core.toUpdateBookScreen
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.UpdateBookScreen
 
@@ -18,31 +16,25 @@ fun NavGraph (
 ) {
     NavHost(
         navController = navController,
-        startDestination = BooksScreen.route
+        startDestination = BooksScreen
     ) {
-        composable(
-            route = BooksScreen.route
-        ) {
+        composable<BooksScreen> {
             BooksScreen(
-                navigateToUpdateBookScreen = { id ->
+                navigateToUpdateBookScreen = { book ->
+                    val updateBookScreen = book.toUpdateBookScreen()
                     navController.navigate(
-                        route = UpdateBookScreen.withArgs(id)
+                        route = updateBookScreen
                     )
                 }
             )
         }
-        composable(
-            route = "${UpdateBookScreen.route}/{$ID}",
-            arguments = listOf(
-                navArgument(ID) {
-                    type = IntType
-                }
-            )
-        ) { entry ->
+        composable<UpdateBookScreen>  { entry ->
+            val updateBookScreen = entry.toRoute<UpdateBookScreen>()
+            val book = updateBookScreen.toBook()
             UpdateBookScreen(
-                id = entry.arguments?.getInt(ID) ?: 0,
+                book = book,
                 navigateBack = {
-                    navController.popBackStack()
+                    navController.navigateUp()
                 }
             )
         }

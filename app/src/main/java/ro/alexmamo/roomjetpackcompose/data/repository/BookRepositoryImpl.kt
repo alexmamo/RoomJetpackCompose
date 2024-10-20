@@ -20,13 +20,6 @@ class BookRepositoryImpl(
         }
     }
 
-    override suspend fun getBook(id: Int) = try {
-        val book = bookDao.getBook(id)
-        Success(book)
-    } catch (e: Exception) {
-        Failure(e)
-    }
-
     override suspend fun insertBook(book: Book) = try {
         bookDao.insertBook(book)
         Success(Unit)

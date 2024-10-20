@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR
+import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR_NAME
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
 import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE_BUTTON
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
@@ -65,7 +65,7 @@ fun UpdateBookContent(
             },
             placeholder = {
                 Text(
-                    text = AUTHOR
+                    text = AUTHOR_NAME
                 )
             }
         )

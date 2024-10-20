@@ -15,7 +15,7 @@ fun BooksContent(
     padding: PaddingValues,
     books: Books,
     deleteBook: (book: Book) -> Unit,
-    navigateToUpdateBookScreen: (id: Int) -> Unit
+    navigateToUpdateBookScreen: (book: Book) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(padding)
@@ -29,7 +29,7 @@ fun BooksContent(
                     deleteBook(book)
                 },
                 onEditIconClick = {
-                    navigateToUpdateBookScreen(book.id)
+                    navigateToUpdateBookScreen(book)
                 }
             )
         }

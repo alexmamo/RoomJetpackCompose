@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
-import ro.alexmamo.roomjetpackcompose.domain.repository.BookResponse
 import ro.alexmamo.roomjetpackcompose.domain.repository.UpdateBookResponse
 import javax.inject.Inject
 
@@ -18,14 +17,8 @@ import javax.inject.Inject
 class UpdateBookViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    var bookResponse by mutableStateOf<BookResponse>(Loading)
-        private set
     var updateBookResponse by mutableStateOf<UpdateBookResponse>(Loading)
         private set
-
-    fun getBook(id: Int) = viewModelScope.launch {
-        bookResponse = repo.getBook(id)
-    }
 
     fun updateBook(book: Book) = viewModelScope.launch {
         updateBookResponse = repo.updateBook(book)

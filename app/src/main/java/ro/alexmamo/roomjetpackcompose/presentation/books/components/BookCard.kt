@@ -22,13 +22,13 @@ fun BookCard(
     onEditIconClick: () -> Unit
 ) {
     Card(
-        shape = MaterialTheme.shapes.small,
         modifier = Modifier.padding(
                 start = 8.dp,
                 end = 8.dp,
                 top = 4.dp,
                 bottom = 4.dp
             ).fillMaxWidth(),
+        shape = MaterialTheme.shapes.small,
         elevation = 3.dp
     ) {
         Row(
