@@ -32,7 +32,7 @@ import ro.alexmamo.roomjetpackcompose.presentation.books.components.InsertBookAl
 @Composable
 fun BooksScreen(
     viewModel: BooksViewModel = hiltViewModel(),
-    navigateToUpdateBookScreen: (book: Book) -> Unit
+    navigateToUpdateBookScreen: (Book) -> Unit
 ) {
     val context = LocalContext.current
     var openInsertBookDialog by remember { mutableStateOf(false) }

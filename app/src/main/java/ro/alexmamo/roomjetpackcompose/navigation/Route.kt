@@ -3,10 +3,10 @@ package ro.alexmamo.roomjetpackcompose.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-object BooksScreen
+object Books
 
 @Serializable
-data class UpdateBookScreen(
+data class UpdateBook(
     val id: Int,
     val title: String,
     val author: String
