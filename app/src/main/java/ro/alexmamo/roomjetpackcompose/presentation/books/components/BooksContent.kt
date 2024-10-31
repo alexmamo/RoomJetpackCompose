@@ -14,8 +14,8 @@ import ro.alexmamo.roomjetpackcompose.domain.repository.Books
 fun BooksContent(
     padding: PaddingValues,
     books: Books,
-    deleteBook: (book: Book) -> Unit,
-    navigateToUpdateBookScreen: (book: Book) -> Unit
+    deleteBook: (Book) -> Unit,
+    navigateToUpdateBookScreen: (Book) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(padding)
@@ -25,10 +25,10 @@ fun BooksContent(
         ) { book ->
             BookCard(
                 book = book,
-                onDeleteIconClick = {
+                onDeleteBookIconClick = {
                     deleteBook(book)
                 },
-                onEditIconClick = {
+                onEditBookIconClick = {
                     navigateToUpdateBookScreen(book)
                 }
             )

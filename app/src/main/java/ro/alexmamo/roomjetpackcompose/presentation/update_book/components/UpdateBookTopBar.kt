@@ -3,8 +3,8 @@ package ro.alexmamo.roomjetpackcompose.presentation.update_book.components
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import ro.alexmamo.roomjetpackcompose.components.ArrowBackIcon
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.UPDATE_BOOK_SCREEN
+import androidx.compose.ui.res.stringResource
+import ro.alexmamo.roomjetpackcompose.R
 
 @Composable
 fun UpdateBookTopBar(
@@ -13,7 +13,9 @@ fun UpdateBookTopBar(
     TopAppBar (
         title = {
             Text(
-                text = UPDATE_BOOK_SCREEN
+                text = stringResource(
+                    id = R.string.update_book_screen_title
+                )
             )
         },
         navigationIcon = {

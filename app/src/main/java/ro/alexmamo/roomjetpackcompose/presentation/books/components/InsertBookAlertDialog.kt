@@ -16,15 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.job
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BOOK
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BUTTON
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.AUTHOR_NAME
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.BOOK_TITLE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.DISMISS_BUTTON
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_STRING
+import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
+
+const val EMPTY_STRING = ""
 
 @Composable
 fun InsertBookAlertDialog(
@@ -41,7 +39,9 @@ fun InsertBookAlertDialog(
         onDismissRequest = closeDialog,
         title = {
             Text(
-                text = INSERT_BOOK
+                text = stringResource(
+                    id = R.string.insert_book
+                )
             )
         },
         text = {
@@ -53,7 +53,9 @@ fun InsertBookAlertDialog(
                     },
                     placeholder = {
                         Text(
-                            text = BOOK_TITLE
+                            text = stringResource(
+                                id = R.string.book_title
+                            )
                         )
                     },
                     modifier = Modifier.focusRequester(focusRequester)
@@ -73,7 +75,9 @@ fun InsertBookAlertDialog(
                     },
                     placeholder = {
                         Text(
-                            text = AUTHOR_NAME
+                            text = stringResource(
+                                id = R.string.author_name
+                            )
                         )
                     }
                 )
@@ -99,7 +103,9 @@ fun InsertBookAlertDialog(
                 }
             ) {
                 Text(
-                    text = INSERT_BUTTON
+                    text = stringResource(
+                        id = R.string.insert_button
+                    )
                 )
             }
         },
@@ -108,7 +114,9 @@ fun InsertBookAlertDialog(
                 onClick = closeDialog
             ) {
                 Text(
-                    text = DISMISS_BUTTON
+                    text = stringResource(
+                        id = R.string.dismiss_button
+                    )
                 )
             }
         }

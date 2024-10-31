@@ -11,15 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ro.alexmamo.roomjetpackcompose.components.DeleteIcon
-import ro.alexmamo.roomjetpackcompose.components.EditIcon
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
 fun BookCard(
     book: Book,
-    onDeleteIconClick: () -> Unit,
-    onEditIconClick: () -> Unit
+    onDeleteBookIconClick: () -> Unit,
+    onEditBookIconClick: () -> Unit
 ) {
     Card(
         modifier = Modifier.padding(
@@ -46,11 +44,11 @@ fun BookCard(
             Spacer(
                 modifier = Modifier.weight(1f)
             )
-            EditIcon(
-                onEditIconClick = onEditIconClick
+            EditBookIcon(
+                onEditBookIconClick = onEditBookIconClick
             )
-            DeleteIcon(
-                onDeleteIconClick = onDeleteIconClick
+            DeleteBookIcon(
+                onDeleteBookIconClick = onDeleteBookIconClick
             )
         }
     }

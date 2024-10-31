@@ -12,14 +12,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ro.alexmamo.roomjetpackcompose.components.ProgressBar
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_AUTHOR_MESSAGE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.EMPTY_TITLE_MESSAGE
-import ro.alexmamo.roomjetpackcompose.core.Constants.Companion.INSERT_BOOK
+import ro.alexmamo.roomjetpackcompose.R
+import ro.alexmamo.roomjetpackcompose.components.LoadingIndicator
+import ro.alexmamo.roomjetpackcompose.core.EMPTY_AUTHOR_MESSAGE
+import ro.alexmamo.roomjetpackcompose.core.EMPTY_TITLE_MESSAGE
 import ro.alexmamo.roomjetpackcompose.core.printError
-import ro.alexmamo.roomjetpackcompose.core.toastMessage
+import ro.alexmamo.roomjetpackcompose.core.showToastMessage
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.model.Response.Failure
 import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
@@ -48,7 +49,7 @@ fun BooksScreen(
         },
         content = { padding ->
             when(val booksResponse = response) {
-                is Loading -> ProgressBar()
+                is Loading -> LoadingIndicator()
                 is Success -> {
                     val books = booksResponse.data
                     if (books.isEmpty()) {
@@ -79,7 +80,9 @@ fun BooksScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = INSERT_BOOK
+                    contentDescription = stringResource(
+                        id = R.string.open_insert_book_dialog
+                    )
                 )
             }
         }
@@ -88,10 +91,10 @@ fun BooksScreen(
     if (openInsertBookDialog) {
         InsertBookAlertDialog(
             showEmptyTitleMessage = {
-                toastMessage(context, EMPTY_TITLE_MESSAGE)
+                showToastMessage(context, EMPTY_TITLE_MESSAGE)
             },
             showEmptyAuthorMessage = {
-                toastMessage(context, EMPTY_AUTHOR_MESSAGE)
+                showToastMessage(context, EMPTY_AUTHOR_MESSAGE)
             },
             insertBook = { book ->
                 viewModel.insertBook(book)
@@ -106,7 +109,7 @@ fun BooksScreen(
     if (insertingBook) {
         val insertBookResponse = viewModel.insertBookResponse
         when(insertBookResponse) {
-            is Loading -> ProgressBar()
+            is Loading -> LoadingIndicator()
             is Success -> insertingBook = false
             is Failure -> printError(insertBookResponse.e)
         }
@@ -115,7 +118,7 @@ fun BooksScreen(
     if (deletingBook) {
         val deleteBookResponse = viewModel.deleteBookResponse
         when(deleteBookResponse) {
-            is Loading -> ProgressBar()
+            is Loading -> LoadingIndicator()
             is Success -> deletingBook = false
             is Failure -> printError(deleteBookResponse.e)
         }

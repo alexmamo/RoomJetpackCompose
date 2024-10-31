@@ -4,11 +4,11 @@ gradle = "8.7.1"
 #Kotlin
 kotlin = "2.0.21"
 #Ksp
-devtoolsKsp = "2.0.21-1.0.25"
+devtoolsKsp = "2.0.21-1.0.26"
 #Hilt
 hiltAndroid = "2.52"
 #Libraries
-composeBom = "2024.10.00"
+composeBom = "2024.10.01"
 compose = "1.5.15"
 navigationCompose = "2.8.3"
 hiltNavigationCompose = "1.2.0"

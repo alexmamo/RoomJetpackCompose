@@ -5,8 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import ro.alexmamo.roomjetpackcompose.core.toBook
-import ro.alexmamo.roomjetpackcompose.core.toUpdateBook
+import ro.alexmamo.roomjetpackcompose.domain.model.toUpdateBook
 import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.UpdateBookScreen
 

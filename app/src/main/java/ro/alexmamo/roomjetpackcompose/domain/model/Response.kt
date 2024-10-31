@@ -11,3 +11,4 @@ sealed class Response<out T> {
         val e: Exception
     ) : Response<Nothing>()
 }
+

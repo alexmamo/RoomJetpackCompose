@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">RoomJetpackCompose</string>
+    <!--Screen Titles-->
+    <string name="books_screen_title">"Books"</string>
+    <string name="update_book_screen_title">"Update book"</string>
+    <!--Texts-->
+    <string name="empty_book_list_text">"The book list is empty."</string>
+    <!--Buttons-->
+    <string name="insert_button">"Insert"</string>
+    <string name="dismiss_button">"Dismiss"</string>
+    <string name="update_button">"Update"</string>
+    <!--Content Descriptions-->
+    <string name="open_insert_book_dialog">"Open insert book dialog."</string>
+    <string name="navigate_back">Navigate back</string>
+    <string name="insert_book">"Insert book"</string>
+    <string name="update_book">"Update book"</string>
+    <string name="delete_book">Delete book</string>
+    <!--Placeholders-->
+    <string name="book_title">"Type a book title…"</string>
+    <string name="author_name">"Type the author name…"</string>
 </resources>
