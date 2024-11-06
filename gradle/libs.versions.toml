@@ -1,6 +1,6 @@
 [versions]
 #Android
-gradle = "8.7.1"
+gradle = "8.7.2"
 #Kotlin
 kotlin = "2.0.21"
 #Ksp

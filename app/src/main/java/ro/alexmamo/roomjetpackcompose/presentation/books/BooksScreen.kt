@@ -17,8 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.LoadingIndicator
-import ro.alexmamo.roomjetpackcompose.core.EMPTY_AUTHOR_MESSAGE
-import ro.alexmamo.roomjetpackcompose.core.EMPTY_TITLE_MESSAGE
 import ro.alexmamo.roomjetpackcompose.core.printError
 import ro.alexmamo.roomjetpackcompose.core.showToastMessage
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
@@ -36,10 +34,9 @@ fun BooksScreen(
     navigateToUpdateBookScreen: (Book) -> Unit
 ) {
     val context = LocalContext.current
+    val resources = context.resources
+    val booksResponse by viewModel.booksResponseFlow.collectAsStateWithLifecycle(Loading)
     var openInsertBookDialog by remember { mutableStateOf(false) }
-    val response by viewModel.response.collectAsStateWithLifecycle(
-        initialValue = Loading
-    )
     var insertingBook by remember { mutableStateOf(false) }
     var deletingBook by remember { mutableStateOf(false) }
 
@@ -48,7 +45,7 @@ fun BooksScreen(
             BooksTopBar()
         },
         content = { padding ->
-            when(val booksResponse = response) {
+            when(val booksResponse = booksResponse) {
                 is Loading -> LoadingIndicator()
                 is Success -> {
                     val books = booksResponse.data
@@ -91,10 +88,16 @@ fun BooksScreen(
     if (openInsertBookDialog) {
         InsertBookAlertDialog(
             showEmptyTitleMessage = {
-                showToastMessage(context, EMPTY_TITLE_MESSAGE)
+                showToastMessage(
+                    context = context,
+                    message = resources.getString(R.string.empty_title_message)
+                )
             },
             showEmptyAuthorMessage = {
-                showToastMessage(context, EMPTY_AUTHOR_MESSAGE)
+                showToastMessage(
+                    context = context,
+                    message = resources.getString(R.string.empty_author_message)
+                )
             },
             insertBook = { book ->
                 viewModel.insertBook(book)

@@ -8,10 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.LoadingIndicator
-import ro.alexmamo.roomjetpackcompose.core.EMPTY_AUTHOR_MESSAGE
-import ro.alexmamo.roomjetpackcompose.core.EMPTY_TITLE_MESSAGE
-import ro.alexmamo.roomjetpackcompose.core.NO_UPDATES_MESSAGE
 import ro.alexmamo.roomjetpackcompose.core.printError
 import ro.alexmamo.roomjetpackcompose.core.showToastMessage
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
@@ -28,6 +26,7 @@ fun UpdateBookScreen(
     navigateBack: () -> Unit
 ) {
     val context = LocalContext.current
+    val resources = context.resources
     var updatingBook by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -41,17 +40,26 @@ fun UpdateBookScreen(
                 padding = padding,
                 book = book,
                 showEmptyTitleMessage = {
-                    showToastMessage(context, EMPTY_TITLE_MESSAGE)
+                    showToastMessage(
+                        context = context,
+                        message = resources.getString(R.string.empty_title_message)
+                    )
                 },
                 showEmptyAuthorMessage = {
-                    showToastMessage(context, EMPTY_AUTHOR_MESSAGE)
+                    showToastMessage(
+                        context = context,
+                        message = resources.getString(R.string.empty_author_message)
+                    )
                 },
                 updateBook = { book ->
                     viewModel.updateBook(book)
                     updatingBook = true
                 },
                 showNoUpdatesMessage = {
-                    showToastMessage(context, NO_UPDATES_MESSAGE)
+                    showToastMessage(
+                        context = context,
+                        message = resources.getString(R.string.no_updates_message)
+                    )
                 },
                 navigateBack = navigateBack
             )

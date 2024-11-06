@@ -8,12 +8,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.repository.Books
 
 @Composable
 fun BooksContent(
     padding: PaddingValues,
-    books: Books,
+    books: List<Book>,
     deleteBook: (Book) -> Unit,
     navigateToUpdateBookScreen: (Book) -> Unit
 ) {
@@ -21,7 +20,10 @@ fun BooksContent(
         modifier = Modifier.fillMaxSize().padding(padding)
     ) {
         items(
-            items = books
+            items = books,
+            key = { book ->
+                book.id
+            }
         ) { book ->
             BookCard(
                 book = book,

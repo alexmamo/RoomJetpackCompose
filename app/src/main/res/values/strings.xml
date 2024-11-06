@@ -1,4 +1,5 @@
 <resources>
+    <!--App-->
     <string name="app_name">RoomJetpackCompose</string>
     <!--Screen Titles-->
     <string name="books_screen_title">"Books"</string>
@@ -18,4 +19,8 @@
     <!--Placeholders-->
     <string name="book_title">"Type a book title…"</string>
     <string name="author_name">"Type the author name…"</string>
+    <!--Messages-->
+    <string name="empty_title_message">"Title cannot be empty."</string>
+    <string name="empty_author_message">"Author cannot be empty."</string>
+    <string name="no_updates_message">"No updates performed."</string>
 </resources>

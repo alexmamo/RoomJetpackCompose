@@ -6,6 +6,9 @@ import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.makeText
 import ro.alexmamo.roomjetpackcompose.domain.model.Response
 
+const val TAG = "AppTag"
+const val BOOK_TABLE = "book_table"
+
 fun printError(e: Exception) = Log.e(TAG, "${e.message}")
 
 fun showToastMessage(
