@@ -4,16 +4,16 @@ import kotlinx.serialization.Serializable
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Serializable
-object Books
+object BookListScreen
 
 @Serializable
-data class UpdateBook(
+data class BookDetails(
     val id: Int,
     val title: String,
     val author: String
 )
 
-fun UpdateBook.toBook() = Book(
+fun BookDetails.toBook() = Book(
     id = this.id,
     title = this.title,
     author = this.author

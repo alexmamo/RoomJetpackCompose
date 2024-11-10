@@ -9,7 +9,7 @@ import ro.alexmamo.roomjetpackcompose.domain.model.Book
 @Dao
 interface BookDao {
     @Query("SELECT * FROM $BOOK_TABLE ORDER BY id ASC")
-    fun getBooks(): Flow<List<Book>>
+    fun getBookList(): Flow<List<Book>>
 
     @Insert(onConflict = IGNORE)
     suspend fun insertBook(book: Book)

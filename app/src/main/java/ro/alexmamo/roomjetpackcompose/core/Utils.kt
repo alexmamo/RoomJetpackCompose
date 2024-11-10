@@ -13,8 +13,8 @@ fun printError(e: Exception) = Log.e(TAG, "${e.message}")
 
 fun showToastMessage(
     context: Context,
-    message: String
-) = makeText(context, message, LENGTH_LONG).show()
+    resourceId: Int
+) = makeText(context, context.resources.getString(resourceId), LENGTH_LONG).show()
 
 suspend fun <T> launchCatching(block: suspend () -> T) = try {
     Response.Success(block())

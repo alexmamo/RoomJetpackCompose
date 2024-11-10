@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.books.components
+package ro.alexmamo.roomjetpackcompose.presentation.book_list.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.sp
 import ro.alexmamo.roomjetpackcompose.R
 
 @Composable
-fun EmptyContent(){
+fun EmptyBookListContent() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,

@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.books.components
+package ro.alexmamo.roomjetpackcompose.presentation.book_list.components
 
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -7,12 +7,12 @@ import androidx.compose.ui.res.stringResource
 import ro.alexmamo.roomjetpackcompose.R
 
 @Composable
-fun BooksTopBar() {
+fun BookListTopBar() {
     TopAppBar (
         title = {
             Text(
                 text = stringResource(
-                    id = R.string.books_screen_title
+                    id = R.string.book_list_screen_title
                 )
             )
         }

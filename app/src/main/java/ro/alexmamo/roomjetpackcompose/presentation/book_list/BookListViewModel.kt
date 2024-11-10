@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.books
+package ro.alexmamo.roomjetpackcompose.presentation.book_list
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,29 +16,38 @@ import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 import javax.inject.Inject
 
 typealias InsertBookResponse = Response<Unit>
+typealias UpdateBookResponse = Response<Unit>
 typealias DeleteBookResponse = Response<Unit>
 
 @HiltViewModel
-class BooksViewModel @Inject constructor(
+class BookListViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    val booksResponseFlow = flow {
-        repo.getBooks().collect { books ->
-            val booksResponse = launchCatching {
-                books
-            }
-            emit(booksResponse)
-        }
-    }
-
     var insertBookResponse by mutableStateOf<InsertBookResponse>(Loading)
+        private set
+    var updateBookResponse by mutableStateOf<UpdateBookResponse>(Loading)
         private set
     var deleteBookResponse by mutableStateOf<DeleteBookResponse>(Loading)
         private set
 
+    val bookListResponseFlow = flow {
+        repo.getBookList().collect { bookList ->
+            val bookListResponse = launchCatching {
+                bookList
+            }
+            emit(bookListResponse)
+        }
+    }
+
     fun insertBook(book: Book) = viewModelScope.launch {
         insertBookResponse = launchCatching {
             repo.insertBook(book)
+        }
+    }
+
+    fun updateBook(book: Book) = viewModelScope.launch {
+        updateBookResponse = launchCatching {
+            repo.updateBook(book)
         }
     }
 

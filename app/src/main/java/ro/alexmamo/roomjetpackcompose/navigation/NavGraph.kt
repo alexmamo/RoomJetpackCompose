@@ -5,9 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import ro.alexmamo.roomjetpackcompose.domain.model.toUpdateBook
-import ro.alexmamo.roomjetpackcompose.presentation.books.BooksScreen
-import ro.alexmamo.roomjetpackcompose.presentation.update_book.UpdateBookScreen
+import ro.alexmamo.roomjetpackcompose.domain.model.toBookDetails
+import ro.alexmamo.roomjetpackcompose.presentation.book_list.BookListScreen
+import ro.alexmamo.roomjetpackcompose.presentation.update_book.BookDetailsScreen
 
 @Composable
 fun NavGraph (
@@ -15,20 +15,20 @@ fun NavGraph (
 ) {
     NavHost(
         navController = navController,
-        startDestination = Books
+        startDestination = BookListScreen
     ) {
-        composable<Books> {
-            BooksScreen(
-                navigateToUpdateBookScreen = { book ->
-                    val updateBook = book.toUpdateBook()
-                    navController.navigate(updateBook)
+        composable<BookListScreen> {
+            BookListScreen(
+                navigateToBookDetailsScreen = { book ->
+                    val bookDetails = book.toBookDetails()
+                    navController.navigate(bookDetails)
                 }
             )
         }
-        composable<UpdateBook>  { entry ->
-            val updateBook = entry.toRoute<UpdateBook>()
-            val book = updateBook.toBook()
-            UpdateBookScreen(
+        composable<BookDetails> { entry ->
+            val bookDetails = entry.toRoute<BookDetails>()
+            val book = bookDetails.toBook()
+            BookDetailsScreen(
                 book = book,
                 navigateBack = navController::navigateUp
             )
