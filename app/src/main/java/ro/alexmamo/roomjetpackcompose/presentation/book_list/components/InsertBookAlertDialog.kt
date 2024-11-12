@@ -24,13 +24,13 @@ fun InsertBookAlertDialog(
     onEmptyTitleInsert: () -> Unit,
     onEmptyAuthorInsert: () -> Unit,
     onInsertBook: (book: Book) -> Unit,
-    onCancel: () -> Unit,
+    onInsertBookDialogCancel: () -> Unit,
 ) {
     var title by remember { mutableStateOf(EMPTY_STRING) }
     var author by remember { mutableStateOf(EMPTY_STRING) }
 
     AlertDialog(
-        onDismissRequest = onCancel,
+        onDismissRequest = onInsertBookDialogCancel,
         title = {
             Text(
                 text = stringResource(
@@ -73,14 +73,14 @@ fun InsertBookAlertDialog(
                         title = title,
                         author = author
                     ))
-                    onCancel()
+                    onInsertBookDialogCancel()
                 },
                 resourceId = R.string.insert_button
             )
         },
         dismissButton = {
             ActionButton(
-                onActionButtonClick = onCancel,
+                onActionButtonClick = onInsertBookDialogCancel,
                 resourceId = R.string.cancel_button
             )
         }

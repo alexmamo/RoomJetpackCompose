@@ -93,7 +93,7 @@ fun BookListScreen(
                 viewModel.insertBook(book)
                 insertingBook = true
             },
-            onCancel = {
+            onInsertBookDialogCancel = {
                 openInsertBookDialog = false
             }
         )
