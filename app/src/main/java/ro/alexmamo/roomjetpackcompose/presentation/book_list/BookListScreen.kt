@@ -49,8 +49,7 @@ fun BookListScreen(
     ) { innerPadding ->
         when(val bookListResponse = bookListResponse) {
             is Loading -> LoadingIndicator()
-            is Success -> {
-                val bookList = bookListResponse.data
+            is Success -> bookListResponse.data.let { bookList ->
                 if (bookList.isEmpty()) {
                     EmptyBookListContent()
                 } else {
@@ -101,8 +100,7 @@ fun BookListScreen(
     }
 
     if (insertingBook) {
-        val insertBookResponse = viewModel.insertBookResponse
-        when(insertBookResponse) {
+        when(val insertBookResponse = viewModel.insertBookResponse) {
             is Loading -> LoadingIndicator()
             is Success -> insertingBook = false
             is Failure -> printError(insertBookResponse.e)
@@ -110,8 +108,7 @@ fun BookListScreen(
     }
 
     if (updatingBook) {
-        val updateBookResponse = viewModel.updateBookResponse
-        when(updateBookResponse) {
+        when(val updateBookResponse = viewModel.updateBookResponse) {
             is Loading -> LoadingIndicator()
             is Success -> updatingBook = false
             is Failure -> printError(updateBookResponse.e)
@@ -119,8 +116,7 @@ fun BookListScreen(
     }
 
     if (deletingBook) {
-        val deleteBookResponse = viewModel.deleteBookResponse
-        when(deleteBookResponse) {
+        when(val deleteBookResponse = viewModel.deleteBookResponse) {
             is Loading -> LoadingIndicator()
             is Success -> deletingBook = false
             is Failure -> printError(deleteBookResponse.e)
