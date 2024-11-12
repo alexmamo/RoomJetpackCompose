@@ -13,7 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
-const val NON_EXISTENT_INDEX = -1
+const val NON_EXISTENT_BOOK_ID = -1
 
 @Composable
 fun BookListContent(
@@ -26,7 +26,7 @@ fun BookListContent(
     onNoUpdates: () -> Unit,
     onDeleteBook: (Book) -> Unit
 ) {
-    var editBookId by remember { mutableIntStateOf(NON_EXISTENT_INDEX) }
+    var editBookId by remember { mutableIntStateOf(NON_EXISTENT_BOOK_ID) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(innerPadding)
@@ -65,12 +65,12 @@ fun BookListContent(
                                 } else {
                                     onNoUpdates()
                                 }
-                                editBookId = NON_EXISTENT_INDEX
+                                editBookId = NON_EXISTENT_BOOK_ID
                             }
                         }
                     },
                     onCancel = {
-                        editBookId = NON_EXISTENT_INDEX
+                        editBookId = NON_EXISTENT_BOOK_ID
                     }
                 )
             }
