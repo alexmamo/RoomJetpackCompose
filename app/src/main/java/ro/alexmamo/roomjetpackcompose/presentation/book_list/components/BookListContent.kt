@@ -48,6 +48,7 @@ fun BookListContent(
                     },
                     onDeleteBook = {
                         onDeleteBook(book)
+                        editBookId = NON_EXISTENT_BOOK_ID
                     }
                 )
             } else {
