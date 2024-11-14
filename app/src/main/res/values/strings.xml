@@ -1,6 +1,7 @@
 <resources>
     <!--App-->
     <string name="app_name">RoomJetpackCompose</string>
+    <string name="db_name">books_db</string>
     <!--Screen Titles-->
     <string name="book_list_screen_title">"Book List"</string>
     <string name="book_details_screen_title">"Book Details"</string>

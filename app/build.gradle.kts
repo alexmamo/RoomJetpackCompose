@@ -53,4 +53,8 @@ dependencies {
     ksp(libs.room.compiler)
     //Serialization
     implementation(libs.serialization)
+    //Tests
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 }

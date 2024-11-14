@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ro.alexmamo.roomjetpackcompose.core.BOOK_TABLE
+import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.data.network.BookDb
 import ro.alexmamo.roomjetpackcompose.data.repository.BookRepositoryImpl
@@ -23,7 +23,7 @@ class AppModule {
     ) = Room.databaseBuilder(
         context,
         BookDb::class.java,
-        BOOK_TABLE
+        context.resources.getString(R.string.db_name)
     ).build()
 
     @Provides

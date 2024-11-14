@@ -4,16 +4,19 @@ gradle = "8.7.2"
 #Kotlin
 kotlin = "2.0.21"
 #Ksp
-devtoolsKsp = "2.0.21-1.0.26"
+devtoolsKsp = "2.0.21-1.0.27"
 #Hilt
 hiltAndroid = "2.52"
 #Libraries
-composeBom = "2024.10.01"
+composeBom = "2024.11.00"
 compose = "1.5.15"
-navigationCompose = "2.8.3"
+navigationCompose = "2.8.4"
 hiltNavigationCompose = "1.2.0"
 room = "2.6.1"
 serialization = "1.7.3"
+junit = "1.2.1"
+runner = "1.6.2"
+kotlinxCoroutinesTest = "1.9.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }
@@ -35,3 +38,6 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
+junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+runner = { module = "androidx.test:runner", version.ref = "runner" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
