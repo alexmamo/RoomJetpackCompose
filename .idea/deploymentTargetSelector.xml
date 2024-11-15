@@ -8,9 +8,6 @@
       <SelectionState runConfigName="BookDaoTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookDao_delete_book()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="bookDao_insert_delete_and_retrieve_books()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
@@ -18,6 +15,9 @@
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="appNavHost_verifyStartDestinationIsBookListScreen()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="bookDao_update_and_retrieve_books()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

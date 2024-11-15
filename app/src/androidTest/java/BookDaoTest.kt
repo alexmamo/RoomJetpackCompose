@@ -18,6 +18,7 @@ class BookDaoTest {
     private lateinit var bookDao: BookDao
     private lateinit var bookDb: BookDb
     private lateinit var cleanArchitecture: Book
+    private lateinit var updatedCleanArchitecture: Book
     private lateinit var thinkingInJava: Book
 
     @Before
@@ -36,6 +37,9 @@ class BookDaoTest {
             id = 1,
             title = "Clean Architecture",
             author = "Robert C. Martin"
+        )
+        updatedCleanArchitecture = cleanArchitecture.copy(
+            title = "Clean Code"
         )
         thinkingInJava = Book(
             id = 2,
@@ -57,25 +61,30 @@ class BookDaoTest {
     }
 
     @Test
-    fun bookDao_delete_book() = runTest {
+    fun bookDao_insert_update_and_retrieve_books() = runTest {
         bookDao.insertBook(cleanArchitecture)
-        bookDao.deleteBook(cleanArchitecture)
+        bookDao.insertBook(thinkingInJava)
+        bookDao.updateBook(
+            book = updatedCleanArchitecture
+        )
 
         val bookList = bookDao.getBookList().first()
 
-        Assert.assertFalse(bookList.contains(cleanArchitecture))
+        Assert.assertTrue(bookList.contains(updatedCleanArchitecture))
+        Assert.assertTrue(bookList.contains(thinkingInJava))
+        Assert.assertEquals(2, bookList.size)
     }
 
     @Test
     fun bookDao_insert_delete_and_retrieve_books() = runTest {
         bookDao.insertBook(cleanArchitecture)
         bookDao.insertBook(thinkingInJava)
-        bookDao.deleteBook(thinkingInJava)
+        bookDao.deleteBook(cleanArchitecture)
 
         val bookList = bookDao.getBookList().first()
 
-        Assert.assertTrue(bookList.contains(cleanArchitecture))
-        Assert.assertFalse(bookList.contains(thinkingInJava))
+        Assert.assertFalse(bookList.contains(cleanArchitecture))
+        Assert.assertTrue(bookList.contains(thinkingInJava))
         Assert.assertEquals(1, bookList.size)
     }
 
