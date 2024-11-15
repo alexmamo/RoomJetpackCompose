@@ -18,3 +18,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+//How to test navigation compose android
+//https://stackoverflow.com/questions/75644786/jetpack-compose
+//https://developer.android.com/codelabs/basic-android-kotlin-compose-test-cupcake#4

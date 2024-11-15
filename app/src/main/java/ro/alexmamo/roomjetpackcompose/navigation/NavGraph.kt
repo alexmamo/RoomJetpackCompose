@@ -10,7 +10,7 @@ import ro.alexmamo.roomjetpackcompose.presentation.book_list.BookListScreen
 import ro.alexmamo.roomjetpackcompose.presentation.update_book.BookDetailsScreen
 
 @Composable
-fun NavGraph (
+fun NavGraph(
     navController: NavHostController
 ) {
     NavHost(
