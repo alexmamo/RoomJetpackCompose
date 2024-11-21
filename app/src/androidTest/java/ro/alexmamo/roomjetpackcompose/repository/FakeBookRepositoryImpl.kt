@@ -19,12 +19,12 @@ class FakeBookRepositoryImpl() : BookRepository {
         bookList.add(book)
     }
 
-    override suspend fun updateBook(updatedBook: Book) {
-        val index = bookList.indexOfFirst { book ->
-            book.id == updatedBook.id
+    override suspend fun updateBook(book: Book) {
+        val indexOfFirstBook = bookList.indexOfFirst { firstBook ->
+            firstBook.id == book.id
         }
-        if (index != -1) {
-            bookList[index] = updatedBook
+        if (indexOfFirstBook != -1) {
+            bookList[indexOfFirstBook] = book
         }
     }
 
