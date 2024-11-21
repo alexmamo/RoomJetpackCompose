@@ -5,19 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="BookDaoTest">
+      <SelectionState runConfigName="assert_IsMainScreenDestinationRouteRight()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookDao_insert_delete_and_retrieve_books()">
+      <SelectionState runConfigName="assert_IsStartDestinationRouteRight()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="appNavHost_verifyStartDestination()">
+      <SelectionState runConfigName="testStartDestinationById()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="appNavHost_verifyStartDestinationIsBookListScreen()">
+      <SelectionState runConfigName="NavigationTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="bookDao_update_and_retrieve_books()">
+      <SelectionState runConfigName="onTest()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

@@ -9,6 +9,8 @@ class BookRepositoryImpl(
 ) : BookRepository {
     override fun getBookList() = bookDao.getBookList()
 
+    override suspend fun getBookById(id: Int) = bookDao.getBookById(id)
+
     override suspend fun insertBook(book: Book) = bookDao.insertBook(book)
 
     override suspend fun updateBook(book: Book) = bookDao.updateBook(book)

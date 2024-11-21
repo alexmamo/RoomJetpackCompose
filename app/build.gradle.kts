@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "ro.alexmamo.roomjetpackcompose.HiltTestRunner"
     }
 
     compileOptions {
@@ -54,7 +54,11 @@ dependencies {
     //Serialization
     implementation(libs.serialization)
     //Tests
-    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.navigation.testing)
+    androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.ui.test.junit4)
     androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.truth)
+    debugImplementation(libs.ui.test.manifest)
 }

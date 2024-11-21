@@ -25,4 +25,8 @@
     <string name="empty_title_message">"Title cannot be empty."</string>
     <string name="empty_author_message">"Author cannot be empty."</string>
     <string name="no_updates_message">"No updates performed."</string>
+    <!--Testing-->
+    <string name="title_test">"Title Test"</string>
+    <string name="author_test">"Author Test"</string>
+    <string name="new_title_test">"New Title Test"</string>
 </resources>

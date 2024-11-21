@@ -11,6 +11,9 @@ interface BookDao {
     @Query("SELECT * FROM $BOOK_TABLE ORDER BY id ASC")
     fun getBookList(): Flow<List<Book>>
 
+    @Query("SELECT * FROM $BOOK_TABLE WHERE id = :id")
+    suspend fun getBookById(id: Int): Book
+
     @Insert(onConflict = IGNORE)
     suspend fun insertBook(book: Book)
 
