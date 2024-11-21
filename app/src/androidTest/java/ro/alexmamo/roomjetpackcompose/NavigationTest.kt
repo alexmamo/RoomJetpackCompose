@@ -60,7 +60,7 @@ class NavigationTest {
     }
 
     @Test
-    fun onTest() {
+    fun testBookInsertAndNavigationToBookDetailsScreenAndBackToBookListScreen() {
         composeTestRule
             .onNodeWithContentDescription(context.getString(R.string.open_insert_book_dialog))
             .performClick()
