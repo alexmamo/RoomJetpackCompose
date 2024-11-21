@@ -16,7 +16,7 @@ import ro.alexmamo.roomjetpackcompose.repository.FakeBookRepositoryImpl
     components = [SingletonComponent::class],
     replaces = [AppModule::class]
 )
-class DiTest {
+class AppModuleTest {
     @Provides
     fun provideBookDb() = Room.inMemoryDatabaseBuilder(
         ApplicationProvider.getApplicationContext<Context>(),
