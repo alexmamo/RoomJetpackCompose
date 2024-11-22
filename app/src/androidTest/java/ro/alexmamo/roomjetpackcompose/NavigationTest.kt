@@ -61,35 +61,27 @@ class NavigationTest {
 
     @Test
     fun testBookInsertAndNavigationToBookDetailsScreenAndBackToBookListScreen() {
-        composeTestRule
-            .onNodeWithContentDescription(context.getString(R.string.open_insert_book_dialog))
-            .performClick()
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.book_title))
-            .performTextInput(context.getString(R.string.title_test))
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.book_author))
-            .performTextInput(context.getString(R.string.author_test))
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.insert_button))
-            .performClick()
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.title_test))
-            .performClick()
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.book_details_screen_title))
-            .assertIsDisplayed()
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.title_test))
-            .assertIsDisplayed()
-        composeTestRule
-            .onNodeWithText("by ${context.getString(R.string.author_test)}")
-            .assertIsDisplayed()
-        composeTestRule
-            .onNodeWithContentDescription(context.getString(R.string.navigate_back))
-            .performClick()
-        composeTestRule
-            .onNodeWithText(context.getString(R.string.book_list_screen_title))
-            .assertIsDisplayed()
+        composeTestRule.apply {
+            onNodeWithContentDescription(context.getString(R.string.open_insert_book_dialog))
+                .performClick()
+            onNodeWithText(context.getString(R.string.book_title))
+                .performTextInput(context.getString(R.string.title_test))
+            onNodeWithText(context.getString(R.string.book_author))
+                .performTextInput(context.getString(R.string.author_test))
+            onNodeWithText(context.getString(R.string.insert_button))
+                .performClick()
+            onNodeWithText(context.getString(R.string.title_test))
+                .performClick()
+            onNodeWithText(context.getString(R.string.book_details_screen_title))
+                .assertIsDisplayed()
+            onNodeWithText(context.getString(R.string.title_test))
+                .assertIsDisplayed()
+            onNodeWithText("by ${context.getString(R.string.author_test)}")
+                .assertIsDisplayed()
+            onNodeWithContentDescription(context.getString(R.string.navigate_back))
+                .performClick()
+            onNodeWithText(context.getString(R.string.book_list_screen_title))
+                .assertIsDisplayed()
+        }
     }
 }
