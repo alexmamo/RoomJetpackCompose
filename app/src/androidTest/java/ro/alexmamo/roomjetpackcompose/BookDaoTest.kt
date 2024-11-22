@@ -78,7 +78,7 @@ class BookDaoTest() {
         bookDao.insertBook(bookTest)
         bookDao.deleteBook(bookTest)
         val bookList = bookDao.getBookList().first()
-        assertThat(bookList.size).isEqualTo(0)
+        assertThat(bookList).isEmpty()
     }
 
     @After

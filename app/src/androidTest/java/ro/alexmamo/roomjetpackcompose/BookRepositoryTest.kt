@@ -75,6 +75,6 @@ class BookRepositoryTest {
         repo.insertBook(bookTest)
         repo.deleteBook(bookTest)
         val bookList = repo.getBookList().first()
-        assertThat(bookList.size).isEqualTo(0)
+        assertThat(bookList).isEmpty()
     }
 }
