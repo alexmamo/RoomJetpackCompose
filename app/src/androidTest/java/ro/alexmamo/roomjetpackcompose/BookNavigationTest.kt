@@ -1,7 +1,7 @@
 package ro.alexmamo.roomjetpackcompose
 
-import android.content.Context
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,7 +11,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -30,8 +29,6 @@ class BookNavigationTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     lateinit var navController: TestNavHostController
-
-    val context = ApplicationProvider.getApplicationContext<Context>()
 
     @Before
     fun setupNavHost() {
@@ -55,33 +52,35 @@ class BookNavigationTest {
     @Test
     fun testStartDestinationByText() {
         composeTestRule
-            .onNodeWithText(context.getString(R.string.book_list_screen_title))
+            .onNodeWithText(getString(R.string.book_list_screen_title))
             .assertIsDisplayed()
     }
 
     @Test
     fun testBookInsertAndNavigationToBookDetailsScreenAndBackToBookListScreen() {
         composeTestRule.apply {
-            onNodeWithContentDescription(context.getString(R.string.open_insert_book_dialog))
+            onNodeWithContentDescription(getString(R.string.open_insert_book_dialog))
                 .performClick()
-            onNodeWithText(context.getString(R.string.book_title))
-                .performTextInput(context.getString(R.string.title_test))
-            onNodeWithText(context.getString(R.string.book_author))
-                .performTextInput(context.getString(R.string.author_test))
-            onNodeWithText(context.getString(R.string.insert_button))
+            onNodeWithText(getString(R.string.book_title))
+                .performTextInput(getString(R.string.title_test))
+            onNodeWithText(getString(R.string.book_author))
+                .performTextInput(getString(R.string.author_test))
+            onNodeWithText(getString(R.string.insert_button))
                 .performClick()
-            onNodeWithText(context.getString(R.string.title_test))
+            onNodeWithText(getString(R.string.title_test))
                 .performClick()
-            onNodeWithText(context.getString(R.string.book_details_screen_title))
+            onNodeWithText(getString(R.string.book_details_screen_title))
                 .assertIsDisplayed()
-            onNodeWithText(context.getString(R.string.title_test))
+            onNodeWithText(getString(R.string.title_test))
                 .assertIsDisplayed()
-            onNodeWithText("by ${context.getString(R.string.author_test)}")
+            onNodeWithText("by ${getString(R.string.author_test)}")
                 .assertIsDisplayed()
-            onNodeWithContentDescription(context.getString(R.string.navigate_back))
+            onNodeWithContentDescription(getString(R.string.navigate_back))
                 .performClick()
-            onNodeWithText(context.getString(R.string.book_list_screen_title))
+            onNodeWithText(getString(R.string.book_list_screen_title))
                 .assertIsDisplayed()
         }
     }
+
+    private fun getString(@StringRes resId: Int) = composeTestRule.activity.getString(resId)
 }
