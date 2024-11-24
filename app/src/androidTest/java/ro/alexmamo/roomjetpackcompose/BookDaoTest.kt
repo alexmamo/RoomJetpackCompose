@@ -14,6 +14,7 @@ import org.junit.Test
 import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.data.network.BookDb
 import ro.alexmamo.roomjetpackcompose.utils.getBookTest
+import ro.alexmamo.roomjetpackcompose.utils.getUpdatedBookTest
 import java.io.IOException
 import javax.inject.Inject
 
@@ -29,6 +30,7 @@ class BookDaoTest() {
 
     val context = ApplicationProvider.getApplicationContext<Context>()
     private val bookTest = getBookTest(context)
+    private val updatedBookTest = getUpdatedBookTest(context)
 
     @Before
     fun init() {
@@ -63,13 +65,9 @@ class BookDaoTest() {
     @Throws(Exception::class)
     fun testUpdateAndGetBookById() = runTest {
         bookDao.insertBook(bookTest)
-        bookDao.updateBook(
-            book = bookTest.copy(
-                title = context.getString(R.string.new_title_test)
-            )
-        )
+        bookDao.updateBook(updatedBookTest)
         val book = bookDao.getBookById(bookTest.id)
-        assertThat(book.title).isEqualTo(context.getString(R.string.new_title_test))
+        assertThat(book.title).isEqualTo(updatedBookTest.title)
     }
 
     @Test

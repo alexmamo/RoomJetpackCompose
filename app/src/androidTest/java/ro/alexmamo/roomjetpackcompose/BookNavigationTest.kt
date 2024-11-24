@@ -1,5 +1,6 @@
 package ro.alexmamo.roomjetpackcompose
 
+import android.content.Context
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.ui.platform.LocalContext
@@ -11,6 +12,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -19,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import ro.alexmamo.roomjetpackcompose.navigation.NavGraph
 import ro.alexmamo.roomjetpackcompose.presentation.MainActivity
+import ro.alexmamo.roomjetpackcompose.utils.getBookTest
 
 @HiltAndroidTest
 class BookNavigationTest {
@@ -27,6 +30,9 @@ class BookNavigationTest {
 
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
+
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    private val bookTest = getBookTest(context)
 
     lateinit var navController: TestNavHostController
 
@@ -62,18 +68,18 @@ class BookNavigationTest {
             onNodeWithContentDescription(getString(R.string.open_insert_book_dialog))
                 .performClick()
             onNodeWithText(getString(R.string.book_title))
-                .performTextInput(getString(R.string.title_test))
+                .performTextInput(bookTest.title)
             onNodeWithText(getString(R.string.book_author))
-                .performTextInput(getString(R.string.author_test))
+                .performTextInput(bookTest.author)
             onNodeWithText(getString(R.string.insert_button))
                 .performClick()
-            onNodeWithText(getString(R.string.title_test))
+            onNodeWithText(bookTest.title)
                 .performClick()
             onNodeWithText(getString(R.string.book_details_screen_title))
                 .assertIsDisplayed()
-            onNodeWithText(getString(R.string.title_test))
+            onNodeWithText(bookTest.title)
                 .assertIsDisplayed()
-            onNodeWithText("by ${getString(R.string.author_test)}")
+            onNodeWithText("by ${bookTest.author}")
                 .assertIsDisplayed()
             onNodeWithContentDescription(getString(R.string.navigate_back))
                 .performClick()

@@ -9,3 +9,7 @@ fun getBookTest(context: Context) = Book(
     title = context.getString(R.string.title_test),
     author = context.getString(R.string.author_test)
 )
+
+fun getUpdatedBookTest(context: Context) = getBookTest(context).copy(
+    title = context.getString(R.string.new_title_test)
+)
