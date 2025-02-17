@@ -11,7 +11,7 @@ const val BOOK_TABLE = "book_table"
 
 fun printError(e: Exception) = Log.e(TAG, "${e.message}")
 
-fun showToastMessage(
+fun showMessage(
     context: Context,
     resourceId: Int
 ) = makeText(context, context.resources.getString(resourceId), LENGTH_LONG).show()

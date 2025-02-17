@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.update_book.components
+package ro.alexmamo.roomjetpackcompose.presentation.book_details.components
 
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar

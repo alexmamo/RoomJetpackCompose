@@ -1,10 +1,10 @@
-package ro.alexmamo.roomjetpackcompose
+package ro.alexmamo.roomjetpackcompose.domain
 
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.core.app.ApplicationProvider
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
@@ -15,6 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
 import ro.alexmamo.roomjetpackcompose.utils.getBookTest
+import ro.alexmamo.roomjetpackcompose.utils.getUpdatedBookTest
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -26,10 +27,11 @@ class BookRepositoryTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Inject
-    lateinit var repo: BookRepository
+    lateinit var fakeRepo: BookRepository
 
     val context = ApplicationProvider.getApplicationContext<Context>()
     private val bookTest = getBookTest(context)
+    private val updatedBookTest = getUpdatedBookTest(context)
 
     @Before
     fun init() {
@@ -38,43 +40,39 @@ class BookRepositoryTest {
 
     @Test
     fun testInsertAndGetBookById() = runBlocking {
-        repo.insertBook(bookTest)
-        val book = repo.getBookById(bookTest.id)
-        assertThat(book).isEqualTo(bookTest)
+        fakeRepo.insertBook(bookTest)
+        val book = fakeRepo.getBookById(bookTest.id)
+        Truth.assertThat(book).isEqualTo(bookTest)
     }
 
     @Test
     fun testInsertAndCheckIfBookExistsInBookList() = runBlocking {
-        repo.insertBook(bookTest)
-        val bookList = repo.getBookList().first()
-        assertThat(bookTest).isIn(bookList)
+        fakeRepo.insertBook(bookTest)
+        val bookList = fakeRepo.getBookList().first()
+        Truth.assertThat(bookTest).isIn(bookList)
     }
 
     @Test
     fun testInsertAndCheckTheSizeOfBookList() = runTest {
-        repo.insertBook(bookTest)
-        val bookList = repo.getBookList().first()
-        assertThat(bookList.size).isEqualTo(1)
+        fakeRepo.insertBook(bookTest)
+        val bookList = fakeRepo.getBookList().first()
+        Truth.assertThat(bookList.size).isEqualTo(1)
     }
 
     @Test
     fun testUpdateAndGetBookById() = runTest {
-        repo.insertBook(bookTest)
-        repo.updateBook(
-            book = bookTest.copy(
-                title = context.getString(R.string.new_title_test)
-            )
-        )
-        val book = repo.getBookById(bookTest.id)
-        assertThat(book?.title).isEqualTo(context.getString(R.string.new_title_test))
+        fakeRepo.insertBook(bookTest)
+        fakeRepo.updateBook(updatedBookTest)
+        val book = fakeRepo.getBookById(bookTest.id)
+        Truth.assertThat(book?.title).isEqualTo(updatedBookTest.title)
     }
 
     @Test
     @Throws(Exception::class)
     fun testInsertAndDeleteAndCheckTheSizeOfBookList() = runTest {
-        repo.insertBook(bookTest)
-        repo.deleteBook(bookTest)
-        val bookList = repo.getBookList().first()
-        assertThat(bookList).isEmpty()
+        fakeRepo.insertBook(bookTest)
+        fakeRepo.deleteBook(bookTest)
+        val bookList = fakeRepo.getBookList().first()
+        Truth.assertThat(bookList).isEmpty()
     }
 }

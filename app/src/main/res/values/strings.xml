@@ -22,9 +22,9 @@
     <string name="book_title">"Type a book title…"</string>
     <string name="book_author">"Type a book author…"</string>
     <!--Messages-->
-    <string name="empty_title_message">"Title cannot be empty."</string>
-    <string name="empty_author_message">"Author cannot be empty."</string>
-    <string name="no_updates_message">"No updates performed."</string>
+    <string name="empty_book_title_message">"Book title cannot be empty."</string>
+    <string name="empty_book_author_message">"Book author cannot be empty."</string>
+    <string name="no_book_updates_message">"No book updates performed."</string>
     <!--Testing-->
     <string name="title_test">"Title Test"</string>
     <string name="author_test">"Author Test"</string>

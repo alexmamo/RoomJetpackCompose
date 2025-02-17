@@ -1,10 +1,10 @@
-package ro.alexmamo.roomjetpackcompose.presentation.update_book
+package ro.alexmamo.roomjetpackcompose.presentation.book_details
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.presentation.update_book.components.BookDetailsContent
-import ro.alexmamo.roomjetpackcompose.presentation.update_book.components.BookDetailsTopBar
+import ro.alexmamo.roomjetpackcompose.presentation.book_details.components.BookDetailsContent
+import ro.alexmamo.roomjetpackcompose.presentation.book_details.components.BookDetailsTopBar
 
 @Composable
 fun BookDetailsScreen(

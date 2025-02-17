@@ -1,8 +1,8 @@
-package ro.alexmamo.roomjetpackcompose
+package ro.alexmamo.roomjetpackcompose.data.dao
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
@@ -11,7 +11,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import ro.alexmamo.roomjetpackcompose.data.dao.BookDao
 import ro.alexmamo.roomjetpackcompose.data.network.BookDb
 import ro.alexmamo.roomjetpackcompose.utils.getBookTest
 import ro.alexmamo.roomjetpackcompose.utils.getUpdatedBookTest
@@ -42,7 +41,7 @@ class BookDaoTest() {
     fun testInsertAndGetBookById() = runTest {
         bookDao.insertBook(bookTest)
         val book = bookDao.getBookById(bookTest.id)
-        assertThat(book).isEqualTo(bookTest)
+        Truth.assertThat(book).isEqualTo(bookTest)
     }
 
     @Test
@@ -50,7 +49,7 @@ class BookDaoTest() {
     fun testInsertAndCheckIfBookExistsInBookList() = runTest {
         bookDao.insertBook(bookTest)
         val bookList = bookDao.getBookList().first()
-        assertThat(bookTest).isIn(bookList)
+        Truth.assertThat(bookTest).isIn(bookList)
     }
 
     @Test
@@ -58,7 +57,7 @@ class BookDaoTest() {
     fun testInsertAndCheckTheSizeOfBookList() = runTest {
         bookDao.insertBook(bookTest)
         val bookList = bookDao.getBookList().first()
-        assertThat(bookList.size).isEqualTo(1)
+        Truth.assertThat(bookList.size).isEqualTo(1)
     }
 
     @Test
@@ -67,7 +66,7 @@ class BookDaoTest() {
         bookDao.insertBook(bookTest)
         bookDao.updateBook(updatedBookTest)
         val book = bookDao.getBookById(bookTest.id)
-        assertThat(book.title).isEqualTo(updatedBookTest.title)
+        Truth.assertThat(book.title).isEqualTo(updatedBookTest.title)
     }
 
     @Test
@@ -76,7 +75,7 @@ class BookDaoTest() {
         bookDao.insertBook(bookTest)
         bookDao.deleteBook(bookTest)
         val bookList = bookDao.getBookList().first()
-        assertThat(bookList).isEmpty()
+        Truth.assertThat(bookList).isEmpty()
     }
 
     @After

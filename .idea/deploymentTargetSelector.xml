@@ -5,19 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="BookDaoTest">
+      <SelectionState runConfigName="BookListTopBarTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testStartDestinationByText()">
+      <SelectionState runConfigName="BookListContentTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="BookNavigationTest">
+      <SelectionState runConfigName="BookListScreenTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testNavigationToBookDetails()">
+      <SelectionState runConfigName="InsertBookAlertDialogTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testBookInsertAndNavigationToBookDetailsScreenAndBackToBookListScreen()">
+      <SelectionState runConfigName="BookDetailsTopBarTest (1)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

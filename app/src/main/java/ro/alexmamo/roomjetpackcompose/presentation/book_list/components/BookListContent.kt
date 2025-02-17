@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
+import ro.alexmamo.roomjetpackcompose.domain.model.BookError
 
 const val NON_EXISTENT_BOOK_ID = -1
 
@@ -21,10 +22,9 @@ fun BookListContent(
     bookList: List<Book>,
     onBookCardClick: (Book) -> Unit,
     onUpdateBook: (Book) -> Unit,
-    onEmptyTitleUpdate: () -> Unit,
-    onEmptyAuthorUpdate: () -> Unit,
-    onNoUpdates: () -> Unit,
-    onDeleteBook: (Book) -> Unit
+    onUpdateBookError: (BookError) -> Unit,
+    onDeleteBook: (Book) -> Unit,
+    onNoUpdates: () -> Unit
 ) {
     var editBookId by remember { mutableIntStateOf(NON_EXISTENT_BOOK_ID) }
 
@@ -57,9 +57,9 @@ fun BookListContent(
                     onUpdateBook = { updatedBook ->
                         updatedBook.apply {
                             if (title.isEmpty()) {
-                                onEmptyTitleUpdate()
+                                onUpdateBookError(BookError.EmptyTitle)
                             } else if (author.isEmpty()) {
-                                onEmptyAuthorUpdate()
+                                onUpdateBookError(BookError.EmptyAuthor)
                             } else {
                                 if (updatedBook != book) {
                                     onUpdateBook(updatedBook)

@@ -9,7 +9,8 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import ro.alexmamo.roomjetpackcompose.data.network.BookDb
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
-import ro.alexmamo.roomjetpackcompose.repository.FakeBookRepositoryImpl
+import ro.alexmamo.roomjetpackcompose.presentation.book_list.BookListViewModel
+import ro.alexmamo.roomjetpackcompose.data.repository.FakeBookRepositoryImpl
 
 @Module
 @TestInstallIn(
@@ -30,4 +31,9 @@ class AppModuleTest {
 
     @Provides
     fun provideBookRepository(): BookRepository = FakeBookRepositoryImpl()
+
+    @Provides
+    fun provideBookListViewModel(
+        repo: BookRepository
+    ) = BookListViewModel(repo)
 }

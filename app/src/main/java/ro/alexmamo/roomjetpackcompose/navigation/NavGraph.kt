@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import ro.alexmamo.roomjetpackcompose.domain.model.toBookDetails
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.BookListScreen
-import ro.alexmamo.roomjetpackcompose.presentation.update_book.BookDetailsScreen
+import ro.alexmamo.roomjetpackcompose.presentation.book_details.BookDetailsScreen
 
 @Composable
 fun NavGraph(

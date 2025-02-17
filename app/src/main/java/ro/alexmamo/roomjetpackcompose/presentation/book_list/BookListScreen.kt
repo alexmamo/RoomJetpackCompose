@@ -1,5 +1,6 @@
 package ro.alexmamo.roomjetpackcompose.presentation.book_list
 
+import android.content.Context
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,11 +13,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.LoadingIndicator
 import ro.alexmamo.roomjetpackcompose.core.printError
-import ro.alexmamo.roomjetpackcompose.core.showToastMessage
+import ro.alexmamo.roomjetpackcompose.core.showMessage
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.model.Response.Failure
-import ro.alexmamo.roomjetpackcompose.domain.model.Response.Loading
-import ro.alexmamo.roomjetpackcompose.domain.model.Response.Success
+import ro.alexmamo.roomjetpackcompose.domain.model.BookError
+import ro.alexmamo.roomjetpackcompose.domain.model.Response
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.BookListContent
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.BookListTopBar
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.EmptyBookListContent
@@ -29,7 +29,7 @@ fun BookListScreen(
     navigateToBookDetailsScreen: (Book) -> Unit
 ) {
     val context = LocalContext.current
-    val bookListResponse by viewModel.bookListResponseFlow.collectAsStateWithLifecycle(Loading)
+    val bookListResponse by viewModel.bookListResponseState.collectAsStateWithLifecycle()
     var openInsertBookDialog by remember { mutableStateOf(false) }
     var insertingBook by remember { mutableStateOf(false) }
     var updatingBook by remember { mutableStateOf(false) }
@@ -48,8 +48,8 @@ fun BookListScreen(
         }
     ) { innerPadding ->
         when(val bookListResponse = bookListResponse) {
-            is Loading -> LoadingIndicator()
-            is Success -> bookListResponse.data.let { bookList ->
+            is Response.Loading -> LoadingIndicator()
+            is Response.Success -> bookListResponse.data.let { bookList ->
                 if (bookList.isEmpty()) {
                     EmptyBookListContent()
                 } else {
@@ -61,37 +61,31 @@ fun BookListScreen(
                             viewModel.updateBook(book)
                             updatingBook = true
                         },
-                        onEmptyTitleUpdate = {
-                            showToastMessage(context, R.string.empty_title_message)
-                        },
-                        onEmptyAuthorUpdate = {
-                            showToastMessage(context, R.string.empty_author_message)
-                        },
-                        onNoUpdates = {
-                            showToastMessage(context, R.string.no_updates_message)
+                        onUpdateBookError = { bookError ->
+                            showBookErrorMessage(context, bookError)
                         },
                         onDeleteBook = { book ->
                             viewModel.deleteBook(book)
                             deletingBook = true
+                        },
+                        onNoUpdates = {
+                            showNoBookUpdatesMessage(context)
                         }
                     )
                 }
             }
-            is Failure -> printError(bookListResponse.e)
+            is Response.Failure -> printError(bookListResponse.e)
         }
     }
 
     if (openInsertBookDialog) {
         InsertBookAlertDialog(
-            onEmptyTitleInsert = {
-                showToastMessage(context, R.string.empty_title_message)
-            },
-            onEmptyAuthorInsert = {
-                showToastMessage(context, R.string.empty_author_message)
-            },
             onInsertBook = { book ->
                 viewModel.insertBook(book)
                 insertingBook = true
+            },
+            onInsertBookError = { bookError ->
+                showBookErrorMessage(context, bookError)
             },
             onInsertBookDialogCancel = {
                 openInsertBookDialog = false
@@ -101,25 +95,43 @@ fun BookListScreen(
 
     if (insertingBook) {
         when(val insertBookResponse = viewModel.insertBookResponse) {
-            is Loading -> LoadingIndicator()
-            is Success -> insertingBook = false
-            is Failure -> printError(insertBookResponse.e)
+            is Response.Loading -> LoadingIndicator()
+            is Response.Success -> insertingBook = false
+            is Response.Failure -> printError(insertBookResponse.e)
         }
     }
 
     if (updatingBook) {
         when(val updateBookResponse = viewModel.updateBookResponse) {
-            is Loading -> LoadingIndicator()
-            is Success -> updatingBook = false
-            is Failure -> printError(updateBookResponse.e)
+            is Response.Loading -> LoadingIndicator()
+            is Response.Success -> updatingBook = false
+            is Response.Failure -> printError(updateBookResponse.e)
         }
     }
 
     if (deletingBook) {
         when(val deleteBookResponse = viewModel.deleteBookResponse) {
-            is Loading -> LoadingIndicator()
-            is Success -> deletingBook = false
-            is Failure -> printError(deleteBookResponse.e)
+            is Response.Loading -> LoadingIndicator()
+            is Response.Success -> deletingBook = false
+            is Response.Failure -> printError(deleteBookResponse.e)
         }
     }
 }
+
+fun showBookErrorMessage(
+    context: Context,
+    bookError: BookError
+) {
+    val resourceId = when(bookError) {
+        BookError.EmptyTitle -> R.string.empty_book_title_message
+        BookError.EmptyAuthor -> R.string.empty_book_author_message
+    }
+    showMessage(context, resourceId)
+}
+
+fun showNoBookUpdatesMessage(
+    context: Context
+) = showMessage(
+    context = context,
+    resourceId = R.string.no_book_updates_message
+)

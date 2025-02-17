@@ -1,30 +1,24 @@
-package ro.alexmamo.roomjetpackcompose
+package ro.alexmamo.roomjetpackcompose.presentation.book_list
 
 import android.content.Context
-import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
-import com.google.common.truth.Truth
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import ro.alexmamo.roomjetpackcompose.navigation.NavGraph
+import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.presentation.MainActivity
 import ro.alexmamo.roomjetpackcompose.utils.getBookTest
 
 @HiltAndroidTest
-class BookNavigationTest {
+class BookListScreenTest {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
@@ -34,36 +28,8 @@ class BookNavigationTest {
     val context = ApplicationProvider.getApplicationContext<Context>()
     private val bookTest = getBookTest(context)
 
-    lateinit var navController: TestNavHostController
-
-    @Before
-    fun setupNavHost() {
-        composeTestRule.activity.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(ComposeNavigator())
-            NavGraph(
-                navController = navController
-            )
-        }
-        composeTestRule.waitForIdle()
-    }
-
     @Test
-    fun testStartDestinationByRoute() {
-        val startDestination = navController.graph.startDestinationRoute
-        val currentDestination = navController.currentBackStackEntry?.destination?.route
-        Truth.assertThat(currentDestination).isEqualTo(startDestination)
-    }
-
-    @Test
-    fun testStartDestinationByText() {
-        composeTestRule
-            .onNodeWithText(getString(R.string.book_list_screen_title))
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun testBookInsertAndNavigationToBookDetailsScreenAndBackToBookListScreen() {
+    fun testBookClickAndNavigationToBookDetailsScreenAndBackToBookListScreen() {
         composeTestRule.apply {
             onNodeWithContentDescription(getString(R.string.open_insert_book_dialog))
                 .performClick()

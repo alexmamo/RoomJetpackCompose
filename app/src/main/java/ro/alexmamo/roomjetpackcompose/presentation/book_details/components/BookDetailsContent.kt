@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.presentation.update_book.components
+package ro.alexmamo.roomjetpackcompose.presentation.book_details.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

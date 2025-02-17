@@ -1,4 +1,4 @@
-package ro.alexmamo.roomjetpackcompose.repository
+package ro.alexmamo.roomjetpackcompose.data.repository
 
 import kotlinx.coroutines.flow.flow
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
