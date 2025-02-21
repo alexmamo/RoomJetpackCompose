@@ -1,21 +1,24 @@
 package ro.alexmamo.roomjetpackcompose.presentation.book_list
 
-import android.content.Context
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.LoadingIndicator
-import ro.alexmamo.roomjetpackcompose.core.printError
-import ro.alexmamo.roomjetpackcompose.core.showMessage
+import ro.alexmamo.roomjetpackcompose.core.logMessage
+import ro.alexmamo.roomjetpackcompose.core.showSnackbarMessage
+import ro.alexmamo.roomjetpackcompose.core.showToastMessage
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.model.BookError
 import ro.alexmamo.roomjetpackcompose.domain.model.Response
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.BookListContent
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.BookListTopBar
@@ -23,17 +26,20 @@ import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.EmptyBoo
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.InsertBookAlertDialog
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.InsertBookFloatingActionButton
 
+const val ADDED_STATE = "added"
+const val UPDATED_STATE = "updated"
+const val DELETED_STATE = "deleted"
+
 @Composable
 fun BookListScreen(
     viewModel: BookListViewModel = hiltViewModel(),
     navigateToBookDetailsScreen: (Book) -> Unit
 ) {
     val context = LocalContext.current
-    val bookListResponse by viewModel.bookListResponseState.collectAsStateWithLifecycle()
+    val resources = context.resources
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
     var openInsertBookDialog by remember { mutableStateOf(false) }
-    var insertingBook by remember { mutableStateOf(false) }
-    var updatingBook by remember { mutableStateOf(false) }
-    var deletingBook by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -45,13 +51,20 @@ fun BookListScreen(
                     openInsertBookDialog = true
                 }
             )
+        },
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState
+            )
         }
     ) { innerPadding ->
-        when(val bookListResponse = bookListResponse) {
+        when(val bookListResponse = viewModel.bookListResponseState.collectAsStateWithLifecycle().value) {
             is Response.Loading -> LoadingIndicator()
             is Response.Success -> bookListResponse.data.let { bookList ->
                 if (bookList.isEmpty()) {
-                    EmptyBookListContent()
+                    EmptyBookListContent(
+                        innerPadding = innerPadding
+                    )
                 } else {
                     BookListContent(
                         innerPadding = innerPadding,
@@ -59,22 +72,33 @@ fun BookListScreen(
                         onBookCardClick = navigateToBookDetailsScreen,
                         onUpdateBook = { book ->
                             viewModel.updateBook(book)
-                            updatingBook = true
                         },
-                        onUpdateBookError = { bookError ->
-                            showBookErrorMessage(context, bookError)
+                        onEmptyBookField = { bookField ->
+                            showSnackbarMessage(
+                                coroutineScope = coroutineScope,
+                                snackbarHostState = snackbarHostState,
+                                message = resources.getString(R.string.empty_book_field_message, bookField)
+                            )
                         },
-                        onDeleteBook = { book ->
-                            viewModel.deleteBook(book)
-                            deletingBook = true
+                        onDeleteBook = { bookId ->
+                            viewModel.deleteBook(bookId)
                         },
                         onNoUpdates = {
-                            showNoBookUpdatesMessage(context)
+                            showSnackbarMessage(
+                                coroutineScope = coroutineScope,
+                                snackbarHostState = snackbarHostState,
+                                message = resources.getString(R.string.no_book_updates_message)
+                            )
                         }
                     )
                 }
             }
-            is Response.Failure -> printError(bookListResponse.e)
+            is Response.Failure -> bookListResponse.e.message?.let { errorMessage ->
+                LaunchedEffect(errorMessage) {
+                    logMessage(errorMessage)
+                    showToastMessage(context, errorMessage)
+                }
+            }
         }
     }
 
@@ -82,10 +106,13 @@ fun BookListScreen(
         InsertBookAlertDialog(
             onInsertBook = { book ->
                 viewModel.insertBook(book)
-                insertingBook = true
             },
-            onInsertBookError = { bookError ->
-                showBookErrorMessage(context, bookError)
+            onEmptyBookField = { emptyField ->
+                showSnackbarMessage(
+                    coroutineScope = coroutineScope,
+                    snackbarHostState = snackbarHostState,
+                    message = resources.getString(R.string.empty_book_field_message, emptyField)
+                )
             },
             onInsertBookDialogCancel = {
                 openInsertBookDialog = false
@@ -93,45 +120,60 @@ fun BookListScreen(
         )
     }
 
-    if (insertingBook) {
-        when(val insertBookResponse = viewModel.insertBookResponse) {
-            is Response.Loading -> LoadingIndicator()
-            is Response.Success -> insertingBook = false
-            is Response.Failure -> printError(insertBookResponse.e)
+    when(val insertBookResponse = viewModel.insertBookResponse.collectAsStateWithLifecycle().value) {
+        is Response.Loading -> LoadingIndicator()
+        is Response.Success -> LaunchedEffect(Unit) {
+            showSnackbarMessage(
+                coroutineScope = coroutineScope,
+                snackbarHostState = snackbarHostState,
+                message = resources.getString(R.string.book_state_message, ADDED_STATE)
+            )
+            viewModel.resetInsertBookState()
         }
+        is Response.Failure -> insertBookResponse.e.message?.let { errorMessage ->
+            LaunchedEffect(errorMessage) {
+                logMessage(errorMessage)
+                showToastMessage(context, errorMessage)
+            }
+        }
+        null -> {}
     }
 
-    if (updatingBook) {
-        when(val updateBookResponse = viewModel.updateBookResponse) {
-            is Response.Loading -> LoadingIndicator()
-            is Response.Success -> updatingBook = false
-            is Response.Failure -> printError(updateBookResponse.e)
+    when(val updateBookResponse = viewModel.updateBookResponse.collectAsStateWithLifecycle().value) {
+        is Response.Loading -> LoadingIndicator()
+        is Response.Success -> LaunchedEffect(Unit) {
+            showSnackbarMessage(
+                coroutineScope = coroutineScope,
+                snackbarHostState = snackbarHostState,
+                message = resources.getString(R.string.book_state_message, UPDATED_STATE)
+            )
+            viewModel.resetUpdateBookState()
         }
+        is Response.Failure -> updateBookResponse.e.message?.let { errorMessage ->
+            LaunchedEffect(errorMessage) {
+                logMessage(errorMessage)
+                showToastMessage(context, errorMessage)
+            }
+        }
+        null -> {}
     }
 
-    if (deletingBook) {
-        when(val deleteBookResponse = viewModel.deleteBookResponse) {
-            is Response.Loading -> LoadingIndicator()
-            is Response.Success -> deletingBook = false
-            is Response.Failure -> printError(deleteBookResponse.e)
+    when(val deleteBookResponse = viewModel.deleteBookResponse.collectAsStateWithLifecycle().value) {
+        is Response.Loading -> LoadingIndicator()
+        is Response.Success -> LaunchedEffect(Unit) {
+            showSnackbarMessage(
+                coroutineScope = coroutineScope,
+                snackbarHostState = snackbarHostState,
+                message = resources.getString(R.string.book_state_message, DELETED_STATE)
+            )
+            viewModel.resetDeleteBookState()
         }
+        is Response.Failure -> deleteBookResponse.e.message?.let { errorMessage ->
+            LaunchedEffect(errorMessage) {
+                logMessage(errorMessage)
+                showToastMessage(context, errorMessage)
+            }
+        }
+        null -> {}
     }
 }
-
-fun showBookErrorMessage(
-    context: Context,
-    bookError: BookError
-) {
-    val resourceId = when(bookError) {
-        BookError.EmptyTitle -> R.string.empty_book_title_message
-        BookError.EmptyAuthor -> R.string.empty_book_author_message
-    }
-    showMessage(context, resourceId)
-}
-
-fun showNoBookUpdatesMessage(
-    context: Context
-) = showMessage(
-    context = context,
-    resourceId = R.string.no_book_updates_message
-)

@@ -1,16 +1,15 @@
 package ro.alexmamo.roomjetpackcompose.presentation.book_list
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ro.alexmamo.roomjetpackcompose.core.launchCatching
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 import ro.alexmamo.roomjetpackcompose.domain.model.Response
 import ro.alexmamo.roomjetpackcompose.domain.repository.BookRepository
@@ -25,8 +24,10 @@ class BookListViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
     val bookListResponseState = repo.getBookList().map { bookList ->
-        launchCatching {
-            bookList
+        try {
+            Response.Success(bookList)
+        } catch (e: Exception) {
+            Response.Failure(e)
         }
     }.stateIn(
         scope = viewModelScope,
@@ -34,28 +35,51 @@ class BookListViewModel @Inject constructor(
         initialValue = Response.Loading
     )
 
-    var insertBookResponse by mutableStateOf<InsertBookResponse>(Response.Loading)
-        private set
-    var updateBookResponse by mutableStateOf<UpdateBookResponse>(Response.Loading)
-        private set
-    var deleteBookResponse by mutableStateOf<DeleteBookResponse>(Response.Loading)
-        private set
+    private val _insertBookResponse = MutableStateFlow<InsertBookResponse?>(null)
+    val insertBookResponse: StateFlow<InsertBookResponse?> = _insertBookResponse.asStateFlow()
+
+    private val _updateBookResponse = MutableStateFlow<UpdateBookResponse?>(null)
+    val updateBookResponse: StateFlow<UpdateBookResponse?> = _updateBookResponse.asStateFlow()
+
+    private val _deleteBookResponse = MutableStateFlow<DeleteBookResponse?>(null)
+    val deleteBookResponse: StateFlow<DeleteBookResponse?> = _deleteBookResponse.asStateFlow()
 
     fun insertBook(book: Book) = viewModelScope.launch {
-        insertBookResponse = launchCatching {
-            repo.insertBook(book)
+        try {
+            _insertBookResponse.value = Response.Loading
+            _insertBookResponse.value = Response.Success(repo.insertBook(book))
+        } catch (e: Exception) {
+            Response.Failure(e)
         }
+    }
+
+    fun resetInsertBookState() = _insertBookResponse.value?.let {
+        _insertBookResponse.value = null
     }
 
     fun updateBook(book: Book) = viewModelScope.launch {
-        updateBookResponse = launchCatching {
-            repo.updateBook(book)
+        try {
+            _updateBookResponse.value = Response.Loading
+            _updateBookResponse.value = Response.Success(repo.updateBook(book))
+        } catch (e: Exception) {
+            Response.Failure(e)
         }
     }
 
+    fun resetUpdateBookState() = _updateBookResponse.value?.let {
+        _updateBookResponse.value = null
+    }
+
     fun deleteBook(book: Book) = viewModelScope.launch {
-        deleteBookResponse = launchCatching {
-            repo.deleteBook(book)
+        try {
+            _deleteBookResponse.value = Response.Loading
+            _deleteBookResponse.value = Response.Success(repo.deleteBook(book))
+        } catch (e: Exception) {
+            Response.Failure(e)
         }
+    }
+
+    fun resetDeleteBookState() = _deleteBookResponse.value?.let {
+        _deleteBookResponse.value = null
     }
 }

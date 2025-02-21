@@ -15,15 +15,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.ActionButton
+import ro.alexmamo.roomjetpackcompose.core.AUTHOR_FIELD
+import ro.alexmamo.roomjetpackcompose.core.TITLE_FIELD
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
-import ro.alexmamo.roomjetpackcompose.domain.model.BookError
 
 const val EMPTY_STRING = ""
 
 @Composable
 fun InsertBookAlertDialog(
     onInsertBook: (book: Book) -> Unit,
-    onInsertBookError: (BookError) -> Unit,
+    onEmptyBookField: (String) -> Unit,
     onInsertBookDialogCancel: () -> Unit,
 ) {
     var title by remember { mutableStateOf(EMPTY_STRING) }
@@ -61,11 +62,11 @@ fun InsertBookAlertDialog(
             ActionButton(
                 onActionButtonClick = {
                     if (title.isEmpty()) {
-                        onInsertBookError(BookError.EmptyTitle)
+                        onEmptyBookField(TITLE_FIELD)
                         return@ActionButton
                     }
                     if (author.isEmpty()) {
-                        onInsertBookError(BookError.EmptyAuthor)
+                        onEmptyBookField(AUTHOR_FIELD)
                         return@ActionButton
                     }
                     onInsertBook(Book(

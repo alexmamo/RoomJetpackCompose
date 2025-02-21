@@ -4,20 +4,28 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.makeText
-import ro.alexmamo.roomjetpackcompose.domain.model.Response
+import androidx.compose.material.SnackbarHostState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 const val TAG = "AppTag"
 const val BOOK_TABLE = "book_table"
+const val AUTHOR_FIELD = "author"
+const val TITLE_FIELD = "title"
 
-fun printError(e: Exception) = Log.e(TAG, "${e.message}")
+fun logMessage(
+    message: String
+) = Log.e(TAG, message)
 
-fun showMessage(
+fun showToastMessage(
     context: Context,
-    resourceId: Int
-) = makeText(context, context.resources.getString(resourceId), LENGTH_LONG).show()
+    message: String
+) = makeText(context, message, LENGTH_LONG).show()
 
-suspend fun <T> launchCatching(block: suspend () -> T) = try {
-    Response.Success(block())
-} catch (e: Exception) {
-    Response.Failure(e)
+fun showSnackbarMessage(
+    coroutineScope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    message: String
+) = coroutineScope.launch {
+    snackbarHostState.showSnackbar(message)
 }

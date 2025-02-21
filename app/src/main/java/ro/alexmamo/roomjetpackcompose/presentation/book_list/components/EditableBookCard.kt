@@ -18,12 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ro.alexmamo.roomjetpackcompose.R
 import ro.alexmamo.roomjetpackcompose.components.ActionButton
+import ro.alexmamo.roomjetpackcompose.core.AUTHOR_FIELD
+import ro.alexmamo.roomjetpackcompose.core.TITLE_FIELD
 import ro.alexmamo.roomjetpackcompose.domain.model.Book
 
 @Composable
 fun EditableBookCard(
     book: Book,
     onUpdateBook: (Book) -> Unit,
+    onEmptyBookField: (String) -> Unit,
+    onNoUpdates: () -> Unit,
     onCancel: () -> Unit
 ) {
     var updatedBook by remember { mutableStateOf(book) }
@@ -70,7 +74,19 @@ fun EditableBookCard(
                 )
                 ActionButton(
                     onActionButtonClick = {
-                        onUpdateBook(updatedBook)
+                        updatedBook.apply {
+                            if (title.isEmpty()) {
+                                onEmptyBookField(TITLE_FIELD)
+                            } else if (author.isEmpty()) {
+                                onEmptyBookField(AUTHOR_FIELD)
+                            } else {
+                                if (updatedBook != book) {
+                                    onUpdateBook(updatedBook)
+                                } else {
+                                    onNoUpdates()
+                                }
+                            }
+                        }
                     },
                     resourceId = R.string.update_button
                 )
