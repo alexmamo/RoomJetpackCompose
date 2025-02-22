@@ -27,7 +27,7 @@ fun EditableBookCard(
     book: Book,
     onUpdateBook: (Book) -> Unit,
     onEmptyBookField: (String) -> Unit,
-    onNoUpdates: () -> Unit,
+    onNoBookUpdates: () -> Unit,
     onCancel: () -> Unit
 ) {
     var updatedBook by remember { mutableStateOf(book) }
@@ -83,7 +83,7 @@ fun EditableBookCard(
                                 if (updatedBook != book) {
                                     onUpdateBook(updatedBook)
                                 } else {
-                                    onNoUpdates()
+                                    onNoBookUpdates()
                                 }
                             }
                         }

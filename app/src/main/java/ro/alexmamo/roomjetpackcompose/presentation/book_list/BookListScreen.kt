@@ -80,7 +80,7 @@ fun BookListScreen(
                         onDeleteBook = { bookId ->
                             viewModel.deleteBook(bookId)
                         },
-                        onNoUpdates = {
+                        onNoBookUpdates = {
                             showSnackbarMessage(
                                 coroutineScope = coroutineScope,
                                 snackbarHostState = snackbarHostState,
@@ -124,7 +124,7 @@ fun BookListScreen(
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookState.ADDED)
+                message = resources.getString(R.string.book_state_message, BookAction.ADDED)
             )
             viewModel.resetInsertBookState()
         }
@@ -143,7 +143,7 @@ fun BookListScreen(
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookState.UPDATED)
+                message = resources.getString(R.string.book_state_message, BookAction.UPDATED)
             )
             viewModel.resetUpdateBookState()
         }
@@ -162,7 +162,7 @@ fun BookListScreen(
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookState.DELETED)
+                message = resources.getString(R.string.book_state_message, BookAction.DELETED)
             )
             viewModel.resetDeleteBookState()
         }
@@ -175,7 +175,7 @@ fun BookListScreen(
     }
 }
 
-enum class BookState() {
+enum class BookAction() {
     ADDED,
     UPDATED,
     DELETED

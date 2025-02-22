@@ -23,7 +23,7 @@ fun BookListContent(
     onUpdateBook: (Book) -> Unit,
     onEmptyBookField: (String) -> Unit,
     onDeleteBook: (Book) -> Unit,
-    onNoUpdates: () -> Unit
+    onNoBookUpdates: () -> Unit
 ) {
     var editBookId by remember { mutableIntStateOf(NON_EXISTENT_BOOK_ID) }
 
@@ -58,8 +58,8 @@ fun BookListContent(
                         editBookId = NON_EXISTENT_BOOK_ID
                     },
                     onEmptyBookField = onEmptyBookField,
-                    onNoUpdates = {
-                        onNoUpdates()
+                    onNoBookUpdates = {
+                        onNoBookUpdates()
                         editBookId = NON_EXISTENT_BOOK_ID
                     },
                     onCancel = {
