@@ -26,10 +26,6 @@ import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.EmptyBoo
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.InsertBookAlertDialog
 import ro.alexmamo.roomjetpackcompose.presentation.book_list.components.InsertBookFloatingActionButton
 
-const val ADDED_STATE = "added"
-const val UPDATED_STATE = "updated"
-const val DELETED_STATE = "deleted"
-
 @Composable
 fun BookListScreen(
     viewModel: BookListViewModel = hiltViewModel(),
@@ -58,7 +54,8 @@ fun BookListScreen(
             )
         }
     ) { innerPadding ->
-        when(val bookListResponse = viewModel.bookListResponseState.collectAsStateWithLifecycle().value) {
+        when(val bookListResponse = viewModel.bookListState.collectAsStateWithLifecycle().value) {
+            is Response.Idle -> {}
             is Response.Loading -> LoadingIndicator()
             is Response.Success -> bookListResponse.data.let { bookList ->
                 if (bookList.isEmpty()) {
@@ -120,13 +117,14 @@ fun BookListScreen(
         )
     }
 
-    when(val insertBookResponse = viewModel.insertBookResponse.collectAsStateWithLifecycle().value) {
+    when(val insertBookResponse = viewModel.insertBookState.collectAsStateWithLifecycle().value) {
+        is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, ADDED_STATE)
+                message = resources.getString(R.string.book_state_message, BookState.ADDED)
             )
             viewModel.resetInsertBookState()
         }
@@ -136,16 +134,16 @@ fun BookListScreen(
                 showToastMessage(context, errorMessage)
             }
         }
-        null -> {}
     }
 
-    when(val updateBookResponse = viewModel.updateBookResponse.collectAsStateWithLifecycle().value) {
+    when(val updateBookResponse = viewModel.updateBookState.collectAsStateWithLifecycle().value) {
+        is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, UPDATED_STATE)
+                message = resources.getString(R.string.book_state_message, BookState.UPDATED)
             )
             viewModel.resetUpdateBookState()
         }
@@ -155,16 +153,16 @@ fun BookListScreen(
                 showToastMessage(context, errorMessage)
             }
         }
-        null -> {}
     }
 
-    when(val deleteBookResponse = viewModel.deleteBookResponse.collectAsStateWithLifecycle().value) {
+    when(val deleteBookResponse = viewModel.deleteBookState.collectAsStateWithLifecycle().value) {
+        is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, DELETED_STATE)
+                message = resources.getString(R.string.book_state_message, BookState.DELETED)
             )
             viewModel.resetDeleteBookState()
         }
@@ -174,6 +172,11 @@ fun BookListScreen(
                 showToastMessage(context, errorMessage)
             }
         }
-        null -> {}
     }
+}
+
+enum class BookState() {
+    ADDED,
+    UPDATED,
+    DELETED
 }

@@ -23,7 +23,7 @@ typealias DeleteBookResponse = Response<Unit>
 class BookListViewModel @Inject constructor(
     private val repo: BookRepository
 ) : ViewModel() {
-    val bookListResponseState = repo.getBookList().map { bookList ->
+    val bookListState = repo.getBookList().map { bookList ->
         try {
             Response.Success(bookList)
         } catch (e: Exception) {
@@ -35,51 +35,51 @@ class BookListViewModel @Inject constructor(
         initialValue = Response.Loading
     )
 
-    private val _insertBookResponse = MutableStateFlow<InsertBookResponse?>(null)
-    val insertBookResponse: StateFlow<InsertBookResponse?> = _insertBookResponse.asStateFlow()
+    private val _insertBookState = MutableStateFlow<InsertBookResponse>(Response.Idle)
+    val insertBookState: StateFlow<InsertBookResponse> = _insertBookState.asStateFlow()
 
-    private val _updateBookResponse = MutableStateFlow<UpdateBookResponse?>(null)
-    val updateBookResponse: StateFlow<UpdateBookResponse?> = _updateBookResponse.asStateFlow()
+    private val _updateBookState = MutableStateFlow<UpdateBookResponse>(Response.Idle)
+    val updateBookState: StateFlow<UpdateBookResponse> = _updateBookState.asStateFlow()
 
-    private val _deleteBookResponse = MutableStateFlow<DeleteBookResponse?>(null)
-    val deleteBookResponse: StateFlow<DeleteBookResponse?> = _deleteBookResponse.asStateFlow()
+    private val _deleteBookState = MutableStateFlow<DeleteBookResponse>(Response.Idle)
+    val deleteBookState: StateFlow<DeleteBookResponse> = _deleteBookState.asStateFlow()
 
     fun insertBook(book: Book) = viewModelScope.launch {
         try {
-            _insertBookResponse.value = Response.Loading
-            _insertBookResponse.value = Response.Success(repo.insertBook(book))
+            _insertBookState.value = Response.Loading
+            _insertBookState.value = Response.Success(repo.insertBook(book))
         } catch (e: Exception) {
             Response.Failure(e)
         }
     }
 
-    fun resetInsertBookState() = _insertBookResponse.value?.let {
-        _insertBookResponse.value = null
+    fun resetInsertBookState() {
+        _insertBookState.value = Response.Idle
     }
 
     fun updateBook(book: Book) = viewModelScope.launch {
         try {
-            _updateBookResponse.value = Response.Loading
-            _updateBookResponse.value = Response.Success(repo.updateBook(book))
+            _updateBookState.value = Response.Loading
+            _updateBookState.value = Response.Success(repo.updateBook(book))
         } catch (e: Exception) {
             Response.Failure(e)
         }
     }
 
-    fun resetUpdateBookState() = _updateBookResponse.value?.let {
-        _updateBookResponse.value = null
+    fun resetUpdateBookState() {
+        _updateBookState.value = Response.Idle
     }
 
     fun deleteBook(book: Book) = viewModelScope.launch {
         try {
-            _deleteBookResponse.value = Response.Loading
-            _deleteBookResponse.value = Response.Success(repo.deleteBook(book))
+            _deleteBookState.value = Response.Loading
+            _deleteBookState.value = Response.Success(repo.deleteBook(book))
         } catch (e: Exception) {
             Response.Failure(e)
         }
     }
 
-    fun resetDeleteBookState() = _deleteBookResponse.value?.let {
-        _deleteBookResponse.value = null
+    fun resetDeleteBookState() {
+        _deleteBookState.value = Response.Idle
     }
 }
