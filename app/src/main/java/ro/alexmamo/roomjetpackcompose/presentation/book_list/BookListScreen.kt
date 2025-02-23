@@ -36,6 +36,10 @@ fun BookListScreen(
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     var openInsertBookDialog by remember { mutableStateOf(false) }
+    val bookListResponse by viewModel.bookListState.collectAsStateWithLifecycle()
+    val insertBookResponse by viewModel.insertBookState.collectAsStateWithLifecycle()
+    val updateBookResponse by viewModel.updateBookState.collectAsStateWithLifecycle()
+    val deleteBookResponse by viewModel.deleteBookState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -54,7 +58,7 @@ fun BookListScreen(
             )
         }
     ) { innerPadding ->
-        when(val bookListResponse = viewModel.bookListState.collectAsStateWithLifecycle().value) {
+        when(val bookListResponse = bookListResponse) {
             is Response.Idle -> {}
             is Response.Loading -> LoadingIndicator()
             is Response.Success -> bookListResponse.data.let { bookList ->
@@ -117,14 +121,14 @@ fun BookListScreen(
         )
     }
 
-    when(val insertBookResponse = viewModel.insertBookState.collectAsStateWithLifecycle().value) {
+    when(val insertBookResponse = insertBookResponse) {
         is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookAction.ADDED)
+                message = resources.getString(R.string.book_action_message, BookAction.ADDED)
             )
             viewModel.resetInsertBookState()
         }
@@ -136,14 +140,14 @@ fun BookListScreen(
         }
     }
 
-    when(val updateBookResponse = viewModel.updateBookState.collectAsStateWithLifecycle().value) {
+    when(val updateBookResponse = updateBookResponse) {
         is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookAction.UPDATED)
+                message = resources.getString(R.string.book_action_message, BookAction.UPDATED)
             )
             viewModel.resetUpdateBookState()
         }
@@ -155,14 +159,14 @@ fun BookListScreen(
         }
     }
 
-    when(val deleteBookResponse = viewModel.deleteBookState.collectAsStateWithLifecycle().value) {
+    when(val deleteBookResponse = deleteBookResponse) {
         is Response.Idle -> {}
         is Response.Loading -> LoadingIndicator()
         is Response.Success -> LaunchedEffect(Unit) {
             showSnackbarMessage(
                 coroutineScope = coroutineScope,
                 snackbarHostState = snackbarHostState,
-                message = resources.getString(R.string.book_state_message, BookAction.DELETED)
+                message = resources.getString(R.string.book_action_message, BookAction.DELETED)
             )
             viewModel.resetDeleteBookState()
         }
